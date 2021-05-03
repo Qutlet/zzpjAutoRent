@@ -6,4 +6,5 @@ import pl.zzpj.autorent.autorent.persistance.entities.CarEntity;
 
 @Repository
 public interface CarRepository extends JpaRepository<CarEntity, Long> {
+    // TODO: 03.05.2021 migrate to remote DB 
 }

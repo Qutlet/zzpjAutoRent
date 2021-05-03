@@ -19,4 +19,5 @@ public class Car {
     //Opis techniczny
     //Kraj pochodzenia
     //cena za dzien
+    // TODO: 03.05.2021 add all need fields
 }

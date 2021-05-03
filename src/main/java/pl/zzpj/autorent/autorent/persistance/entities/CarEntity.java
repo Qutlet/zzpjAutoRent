@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -13,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "cars")
-//@EqualsAndHashCode(exclude = "offers")
+@EqualsAndHashCode(exclude = "offers")
 public class CarEntity {
 
     @Id
@@ -30,6 +31,8 @@ public class CarEntity {
     //Opis techniczny
     //Kraj pochodzenia
     //cena za dzien
-    //@ManyToMany(mappedBy = "cars");
-    //private Set<OfferEntity> offers = new HashSet<>();
+    // TODO: 03.05.2021 add all needed fields 
+
+    @ManyToMany(mappedBy = "cars")
+    private Set<OfferEntity> offers = new HashSet<>();
 }
