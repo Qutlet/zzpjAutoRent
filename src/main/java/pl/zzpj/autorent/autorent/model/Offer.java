@@ -33,6 +33,4 @@ public class Offer {
         this.email = email;
         this.rented = rented;
     }
-
-
 }

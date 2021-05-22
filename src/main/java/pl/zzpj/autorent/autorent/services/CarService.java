@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pl.zzpj.autorent.autorent.model.Car;
-import pl.zzpj.autorent.autorent.persistance.CarRepository;
-import pl.zzpj.autorent.autorent.persistance.entities.CarEntity;
+import pl.zzpj.autorent.autorent.repositories.CarRepository;
 
 import java.util.List;
 
@@ -18,35 +17,34 @@ public class CarService {
     public CarService(CarRepository carRepository) {
         this.carRepository = carRepository;
     }
-
-    public CarEntity getCar(long id) {
-        return carRepository.findById(id).orElseThrow();
+//
+//    public CarEntity getCar(long id) {
+//        return carRepository.findById(id).orElseThrow();
+//    }
+//
+//    // TODO: 03.05.2021 check car ownership
+//    // TODO: 03.05.2021 check if car is rented before upgrade
+//    public CarEntity updateCar(CarEntity car) {
+//        CarEntity updatedCar = carRepository.save(car);
+//        return updatedCar;
+//    }
+//
+//    // TODO: 03.05.2021 edit car
+//
+    public void addCar(Car car) {
+        carRepository.save(car);
     }
-
-    // TODO: 03.05.2021 check car ownership
-    // TODO: 03.05.2021 check if car is rented before upgrade
-    public CarEntity updateCar(CarEntity car) {
-        CarEntity updatedCar = carRepository.save(car);
-        return updatedCar;
-    }
-
-    // TODO: 03.05.2021 edit car
-
-    public CarEntity addCar(CarEntity car) {
-        CarEntity newCar = carRepository.save(car);
-        return newCar;
-    }
-
-    // TODO: 03.05.2021 check car ownership
-    // TODO: 03.05.2021 check if car is rented before deleting
-    public void deleteCar(long id) {
-        carRepository.deleteById(id);
-    }
-
-    public List<CarEntity> getAllCars() {
-        return carRepository.findAll();
-    }
-
-    // TODO: 03.05.2021 add method getAllNoRentedCar
-
+//
+//    // TODO: 03.05.2021 check car ownership
+//    // TODO: 03.05.2021 check if car is rented before deleting
+//    public void deleteCar(long id) {
+//        carRepository.deleteById(id);
+//    }
+//
+//    public List<CarEntity> getAllCars() {
+//        return carRepository.findAll();
+//    }
+//
+//    // TODO: 03.05.2021 add method getAllNoRentedCar
+//
 }

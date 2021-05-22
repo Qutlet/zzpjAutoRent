@@ -1,0 +1,3 @@
+**If you want to start database connection, you have to change firebase.credential.path in application properties to your absolute path (I don't know how to set realtive yet).**
+
+This is the first version with one endpoint to add offer, and one endpoint to add car. To test it you have to start server with mvn sprint-boot:run and use one of my predefined postman requests https://app.getpostman.com/join-team?invite_code=713a8d00250a8dd8c7c7e504bb1b0045
