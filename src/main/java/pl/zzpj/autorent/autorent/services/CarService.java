@@ -17,33 +17,38 @@ public class CarService {
     public CarService(CarRepository carRepository) {
         this.carRepository = carRepository;
     }
-//
+
+    //
 //    public CarEntity getCar(long id) {
 //        return carRepository.findById(id).orElseThrow();
 //    }
 //
 //    // TODO: 03.05.2021 check car ownership
 //    // TODO: 03.05.2021 check if car is rented before upgrade
-//    public CarEntity updateCar(CarEntity car) {
-//        CarEntity updatedCar = carRepository.save(car);
-//        return updatedCar;
-//    }
-//
+    public void updateCar(Car car) {
+        carRepository.save(car);
+        //return updatedCar;
+    }
+
+    //
 //    // TODO: 03.05.2021 edit car
 //
     public void addCar(Car car) {
         carRepository.save(car);
     }
-//
+
+    //
 //    // TODO: 03.05.2021 check car ownership
 //    // TODO: 03.05.2021 check if car is rented before deleting
-//    public void deleteCar(long id) {
-//        carRepository.deleteById(id);
-//    }
-//
-//    public List<CarEntity> getAllCars() {
-//        return carRepository.findAll();
-//    }
+    public void deleteCar(long id, Car car) {
+        //carRepository.deleteById(id);
+        carRepository.delete(car);
+    }
+
+    //
+    public List<Car> getAllCars() {
+        return carRepository.retrieveAll();
+    }
 //
 //    // TODO: 03.05.2021 add method getAllNoRentedCar
 //

@@ -3,16 +3,24 @@ package pl.zzpj.autorent.autorent.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.zzpj.autorent.autorent.model.Car;
 
+import javax.persistence.*;
 import java.sql.Date;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Entity
+//@Table(name = "offers")
 public class Offer {
-    private int carID;
-    private int ownerID;
-    private int clientID;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long id;
+    private long carID;
+    private long ownerID;
+    private long clientID;
     private float price;
     private String offerName;
     private String description;
@@ -23,7 +31,7 @@ public class Offer {
     //zdiecie
     // TODO: 03.05.2021 add photo field
 
-    public Offer(int carID, int ownerID, float price, String offerName, String description, String phone, String email, boolean rented) {
+    public Offer(long carID, long ownerID, float price, String offerName, String description, String phone, String email) {
         this.carID = carID;
         this.ownerID = ownerID;
         this.price = price;
@@ -31,6 +39,26 @@ public class Offer {
         this.description = description;
         this.phone = phone;
         this.email = email;
+        //this.isRented = isRented;
+    }
+
+//    public OfferEntity(int carID, int ownerID, float price, String offerName, String description, String phone, String email) {
+//        this.carID = carID;
+//        this.ownerID = ownerID;
+//        this.price = price;
+//        this.offerName = offerName;
+//        this.description = description;
+//        this.phone = phone;
+//        this.email = email;
+//        this.isRented = false;
+//    }
+
+
+    public void setRented(boolean rented) {
         this.rented = rented;
+    }
+
+    public void setClientID(long clientID) {
+        this.clientID = clientID;
     }
 }
