@@ -22,52 +22,54 @@ public class OfferController {
 //
 //    // TODO: 03.05.2021 optional: add get path for getting all offer; to discuss with UserController group
 //
-//    @GetMapping(path = "/offers", produces = APPLICATION_JSON_VALUE)
-//    public ResponseEntity getAllNoRentedOffers() {
-//        final List<OfferEntity> offers = offerService.getAllNoRentedOffers();
-//        return ResponseEntity.ok(offers);
-//    }
-//
-//    @GetMapping(path = "/offers/{id}", produces = APPLICATION_JSON_VALUE)
-//    public ResponseEntity getOfferById(@PathVariable long id) {
-//        final OfferEntity offer = offerService.getOffer(id);
-//        return ResponseEntity.ok(offer);
-//    }
-//
+@GetMapping(path = "/offers", produces = APPLICATION_JSON_VALUE)
+public ResponseEntity getAllNoRentedOffers() {
+    final List<Offer> offers = offerService.getAllNoRentedOffers();
+    return ResponseEntity.ok(offers);
+}
+
+    @GetMapping(path = "/offers/{id}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity getOfferById(@PathVariable String id) {
+        final Offer offer = offerService.getOffer(id);
+        return ResponseEntity.ok(offer);
+    }
+
     @PostMapping(path = "/offers", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity addOffer(@RequestBody Offer offer) {
         offerService.addOffer(offer);
         return ResponseEntity.ok(offer);
     }
-//
-//    @PutMapping(path = "/offers/rent/{userid}/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-//    public ResponseEntity rentCar(@PathVariable long id, @PathVariable long userid) {
-//        final OfferEntity updatedOffer = offerService.updateOffer(id, userid);
+
+    @PutMapping(path = "/offers/rent/{userid}/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity rentCar(@PathVariable String id, @PathVariable String userid) {
+        offerService.updateOffer(id, userid);
 //        HttpHeaders headers = new HttpHeaders();
 //        headers.setLocation(URI.create("offers/rent/" + updatedOffer.getId()));
 //        return ResponseEntity.status(HttpStatus.NO_CONTENT).headers(headers).build();
-//    }
-//
-//    @PutMapping(path = "/offers/return/{userid}/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-//    public ResponseEntity returnCar(@PathVariable long id, @PathVariable long userid) {
-//        final OfferEntity updatedOffer = offerService.updateOffer(id, userid);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping(path = "/offers/return/{userid}/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity returnCar(@PathVariable String id, @PathVariable String userid) {
+        offerService.updateOffer(id, userid);
 //        HttpHeaders headers = new HttpHeaders();
 //        headers.setLocation(URI.create("offers/return/" + updatedOffer.getId()));
 //        return ResponseEntity.status(HttpStatus.NO_CONTENT).headers(headers).build();
-//    }
-//
-//    @DeleteMapping(path = "/offers/{id}", consumes = APPLICATION_JSON_VALUE)
-//    public ResponseEntity deleteOffer(@PathVariable long id) {
-//        int response = offerService.deleteOffer(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping(path = "/offers/{id}", consumes = APPLICATION_JSON_VALUE)
+    public ResponseEntity deleteOffer(@PathVariable long id) {
+        offerService.deleteOffer(id);
 //        if (response == 1) {
 //            return ResponseEntity.badRequest().build();
 //        }
-//        return ResponseEntity.accepted().build();
-//    }
-//
-//    @PutMapping(path = "/offers/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-//    public ResponseEntity editOffer(@PathVariable long id, @RequestBody OfferEntity offer) {
-//        final OfferEntity editedOffer = offerService.editOffer(offer);
-//        return ResponseEntity.ok(editedOffer);
-//    }
+        return ResponseEntity.accepted().build();
+    }
+
+    @PutMapping(path = "/offers/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity editOffer(@PathVariable long id, @RequestBody Offer offer) {
+        offerService.editOffer(offer);
+        return ResponseEntity.ok().build();
+    }
 }

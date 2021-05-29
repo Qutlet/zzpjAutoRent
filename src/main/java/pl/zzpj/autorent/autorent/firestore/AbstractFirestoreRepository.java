@@ -47,6 +47,10 @@ public abstract class AbstractFirestoreRepository<T> {
 
     }
 
+    public void deleteById(String id) {
+        collectionReference.document(id).delete();
+    }
+
     public List<T> retrieveAll() {
         ApiFuture<QuerySnapshot> querySnapshotApiFuture = collectionReference.get();
 
@@ -70,11 +74,13 @@ public abstract class AbstractFirestoreRepository<T> {
         ApiFuture<DocumentSnapshot> documentSnapshotApiFuture = documentReference.get();
 
         try {
+            T t = null;
             DocumentSnapshot documentSnapshot = documentSnapshotApiFuture.get();
 
             if (documentSnapshot.exists()) {
-                return Optional.ofNullable(documentSnapshot.toObject(parameterizedType));
+                t = documentSnapshot.toObject(parameterizedType);
             }
+            return Optional.of(t);
 
         } catch (InterruptedException | ExecutionException e) {
             log.error("Exception occurred retrieving: {} {}, {}", collectionName, documentId, e.getMessage());
@@ -84,6 +90,10 @@ public abstract class AbstractFirestoreRepository<T> {
 
     }
 
+    public void update(String documentId, T model){
+        ApiFuture<WriteResult> resultApiFuture = collectionReference.document(documentId).set(model);
+
+    }
 
     protected String getDocumentId(T t) {
         Object key;
