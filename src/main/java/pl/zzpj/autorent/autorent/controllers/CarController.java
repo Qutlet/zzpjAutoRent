@@ -18,31 +18,46 @@ public class CarController {
 
     @Autowired
     private CarService carService;
-//
-//    @GetMapping(path = "/cars", produces = APPLICATION_JSON_VALUE)
-//    public ResponseEntity getAllCars() {
-//        final List<CarEntity> cars = carService.getAllCars();
-//        return ResponseEntity.ok(cars);
-//    }
-//
-    @PostMapping(path = "/cars", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public void addCar(@RequestBody Car car) {
-        carService.addCar(car);
+
+    @GetMapping(path = "/cars", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity getAllCars() {
+        final List<Car> cars = carService.getAllCars();
+        return ResponseEntity.ok(cars);
     }
-//
-//    @PutMapping(path = "/cars/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-//    public ResponseEntity rentCar(@PathVariable long id, @RequestBody CarEntity car) {
-//        final CarEntity updatedCar = carService.updateCar(car);
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setLocation(URI.create("offers/rent/" + updatedCar.getId()));
-//        return ResponseEntity.status(HttpStatus.NO_CONTENT).headers(headers).build();
-//    }
-//
-//    @DeleteMapping(path = "/cars/{id}", consumes = APPLICATION_JSON_VALUE)
-//    public ResponseEntity deleteCar(@PathVariable long id) {
-//        carService.deleteCar(id);
-//        return ResponseEntity.accepted().build();
-//    }
+
+    @GetMapping(path = "/cars/{id}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity getCar(@PathVariable String id) {
+        final Car cars = carService.getCar(id);
+        return ResponseEntity.ok(cars);
+    }
+
+    @PostMapping(path = "/cars", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity addCar(@RequestBody Car car) {
+        carService.addCar(car);
+        return ResponseEntity.ok().build();
+    }
+
+    //
+    @PutMapping(path = "/cars/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity editCar(@PathVariable String id, @RequestBody Car car) {
+        carService.updateCar(id,car);
+        //HttpHeaders headers = new HttpHeaders();
+        //headers.setLocation(URI.create("offers/rent/" + updatedCar.getId()));
+        //return ResponseEntity.status(HttpStatus.NO_CONTENT).headers(headers).build();
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping(path = "/cars/rent/{id}")
+    public ResponseEntity rentCar(@PathVariable String id) {
+        carService.rentCar(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping(path = "/cars/{id}")
+    public ResponseEntity deleteCar(@PathVariable String id) {
+        carService.deleteCar(id);
+        return ResponseEntity.accepted().build();
+    }
 //
 //    // TODO: 03.05.2021 return car
 //    // TODO: 03.05.2021 edit car
