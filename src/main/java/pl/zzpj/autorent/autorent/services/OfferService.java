@@ -8,6 +8,7 @@ import pl.zzpj.autorent.autorent.repositories.OfferRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class OfferService {
@@ -47,6 +48,7 @@ public class OfferService {
     }
 
     public void addOffer(Offer offer) {
+        offer.setId(UUID.randomUUID().toString());
         offerRepository.save(offer);
     }
 
@@ -64,6 +66,10 @@ public class OfferService {
     }
 
     //
+    public List<Offer> getAllOffers() {
+        return offerRepository.retrieveAll();
+    }
+
     public List<Offer> getAllNoRentedOffers() {
         List<Offer> all = offerRepository.retrieveAll();
         all.removeIf(Offer::isRented);

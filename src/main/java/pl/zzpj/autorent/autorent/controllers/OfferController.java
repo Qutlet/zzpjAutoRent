@@ -19,14 +19,17 @@ public class OfferController {
 
     @Autowired
     private OfferService offerService;
-//
-//    // TODO: 03.05.2021 optional: add get path for getting all offer; to discuss with UserController group
-//
-@GetMapping(path = "/offers", produces = APPLICATION_JSON_VALUE)
-public ResponseEntity getAllNoRentedOffers() {
-    final List<Offer> offers = offerService.getAllNoRentedOffers();
-    return ResponseEntity.ok(offers);
-}
+
+    @GetMapping(path = "/offers/all", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity getAllOffers() {
+        return ResponseEntity.ok(offerService.getAllOffers());
+    }
+
+    @GetMapping(path = "/offers", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity getAllNoRentedOffers() {
+        final List<Offer> offers = offerService.getAllNoRentedOffers();
+        return ResponseEntity.ok(offers);
+    }
 
     @GetMapping(path = "/offers/{id}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity getOfferById(@PathVariable String id) {

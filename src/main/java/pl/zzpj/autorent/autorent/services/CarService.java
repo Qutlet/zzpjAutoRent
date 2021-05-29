@@ -24,10 +24,10 @@ public class CarService {
     }
 //
 //    // TODO: 03.05.2021 check car ownership
-//    // TODO: 03.05.2021 check if car is rented before upgrade
     public void updateCar(String id, Car car) {
-        carRepository.update(id,car);
-        //return updatedCar;
+        if (!car.isRented()){
+            carRepository.update(id,car);
+        }
     }
 
     public void rentCar(String id) {
@@ -36,23 +36,32 @@ public class CarService {
         carRepository.update(id,car);
     }
 
-//    // TODO: 03.05.2021 edit car
-//
+    public void returnCar(String id) {
+        Car car = getCar(id);
+        car.setRented(false);
+        carRepository.update(id,car);
+    }
+
     public void addCar(Car car) {
         car.setId(UUID.randomUUID().toString());
         carRepository.save(car);
     }
 
 //    // TODO: 03.05.2021 check car ownership
-//    // TODO: 03.05.2021 check if car is rented before deleting
     public void deleteCar(String id) {
-        carRepository.deleteById(id);
+        Car car = getCar(id);
+        if (!car.isRented()){
+            carRepository.deleteById(id);
+        }
     }
 
     public List<Car> getAllCars() {
         return carRepository.retrieveAll();
     }
-//
-//    // TODO: 03.05.2021 add method getAllNoRentedCar
-//
+
+    public List<Car> getAllNoRentedCars() {
+        List<Car> cars = carRepository.retrieveAll();
+        cars.removeIf(Car::isRented);
+        return cars;
+    }
 }

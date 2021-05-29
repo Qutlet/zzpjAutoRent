@@ -37,13 +37,9 @@ public class CarController {
         return ResponseEntity.ok().build();
     }
 
-    //
     @PutMapping(path = "/cars/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity editCar(@PathVariable String id, @RequestBody Car car) {
-        carService.updateCar(id,car);
-        //HttpHeaders headers = new HttpHeaders();
-        //headers.setLocation(URI.create("offers/rent/" + updatedCar.getId()));
-        //return ResponseEntity.status(HttpStatus.NO_CONTENT).headers(headers).build();
+        carService.updateCar(id, car);
         return ResponseEntity.ok().build();
     }
 
@@ -53,14 +49,23 @@ public class CarController {
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping(path = "/cars/return/{id}")
+    public ResponseEntity returnCar(@PathVariable String id) {
+        carService.returnCar(id);
+        return ResponseEntity.ok().build();
+    }
+
     @DeleteMapping(path = "/cars/{id}")
     public ResponseEntity deleteCar(@PathVariable String id) {
         carService.deleteCar(id);
         return ResponseEntity.accepted().build();
     }
-//
-//    // TODO: 03.05.2021 return car
-//    // TODO: 03.05.2021 edit car
 
+    @GetMapping(path = "/cars/available", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity getAllNoRented(){
+        return ResponseEntity.ok(carService.getAllNoRentedCars());
+    }
 
 }
+
+
