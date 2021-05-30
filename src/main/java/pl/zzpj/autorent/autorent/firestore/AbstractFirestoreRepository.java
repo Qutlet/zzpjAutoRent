@@ -4,6 +4,7 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.database.annotations.Nullable;
 import lombok.extern.slf4j.Slf4j;
+import pl.zzpj.autorent.autorent.model.Offer;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.*;
@@ -53,10 +54,9 @@ public abstract class AbstractFirestoreRepository<T> {
 
     public List<T> retrieveAll() {
         ApiFuture<QuerySnapshot> querySnapshotApiFuture = collectionReference.get();
-
         try {
             List<QueryDocumentSnapshot> queryDocumentSnapshots = querySnapshotApiFuture.get().getDocuments();
-
+            System.out.println(queryDocumentSnapshots.get(0).toString());
             return queryDocumentSnapshots.stream()
                     .map(queryDocumentSnapshot -> queryDocumentSnapshot.toObject(parameterizedType))
                     .collect(Collectors.toList());
