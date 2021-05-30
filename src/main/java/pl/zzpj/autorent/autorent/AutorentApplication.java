@@ -9,5 +9,4 @@ public class AutorentApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AutorentApplication.class, args);
 	}
-
 }
