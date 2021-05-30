@@ -98,6 +98,7 @@ public class OfferService {
 //                .build();
 //        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 //        System.out.println(response.body());
+        //
 
         return offerRepository.retrieveAll();
     }
