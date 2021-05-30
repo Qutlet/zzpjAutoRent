@@ -90,14 +90,14 @@ public class OfferService {
 //        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 //        System.out.println(response.body());
 
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://ip-geolocation-ipwhois-io.p.rapidapi.com/json/?ip=46.148.79.143"))
-                .header("x-rapidapi-key", "2e775c2a61mshe8a9d515320ba79p148d59jsn25cb96372d73")
-                .header("x-rapidapi-host", "ip-geolocation-ipwhois-io.p.rapidapi.com")
-                .method("GET", HttpRequest.BodyPublishers.noBody())
-                .build();
-        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.body());
+//        HttpRequest request = HttpRequest.newBuilder()
+//                .uri(URI.create("https://ip-geolocation-ipwhois-io.p.rapidapi.com/json/?ip=46.148.79.143"))
+//                .header("x-rapidapi-key", "2e775c2a61mshe8a9d515320ba79p148d59jsn25cb96372d73")
+//                .header("x-rapidapi-host", "ip-geolocation-ipwhois-io.p.rapidapi.com")
+//                .method("GET", HttpRequest.BodyPublishers.noBody())
+//                .build();
+//        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+//        System.out.println(response.body());
 
         return offerRepository.retrieveAll();
     }
