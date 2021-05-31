@@ -30,7 +30,6 @@ public class CommentService {
     }
 
     public void deleteComment(String id) {
-        Comment comment = getComment(id);
         commentRepository.deleteById(id);
     }
 
