@@ -41,6 +41,7 @@ public class CommentController {
         return ResponseEntity.ok(comments);
     }
 
+
     @PostMapping(path = "/comments", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity addComment(@RequestBody Comment comment) {
         commentService.addComment(comment);
@@ -53,15 +54,6 @@ public class CommentController {
     @DeleteMapping(path = "/comments/{id}")
     public ResponseEntity deleteComment(@PathVariable String id) {
         commentService.deleteComment(id);
-
-    // TODO: end
-    @PostMapping(path = "/comments", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity addComment(@RequestBody Comment comment) {
-        return ResponseEntity.ok(comment);
-    }
-    // TODO: end
-    @DeleteMapping(path = "/comments/{id}")
-    public ResponseEntity deleteComment(@PathVariable String id) {
         return ResponseEntity.accepted().build();
     }
 
