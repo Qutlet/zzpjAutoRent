@@ -8,6 +8,7 @@ import pl.zzpj.autorent.autorent.firestore.DocumentId;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class Car {
     @DocumentId
     private String id;

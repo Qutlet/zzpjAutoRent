@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pl.zzpj.autorent.autorent.model.Car;
+import pl.zzpj.autorent.autorent.model.Comment;
 import pl.zzpj.autorent.autorent.repositories.CarRepository;
+import pl.zzpj.autorent.autorent.repositories.CommentRepository;
 
 import java.util.List;
 import java.util.UUID;
@@ -13,6 +15,7 @@ import java.util.UUID;
 public class CarService {
 
     private CarRepository carRepository;
+    private CommentRepository commentRepository;
 
     @Autowired
     public CarService(CarRepository carRepository) {
@@ -41,9 +44,18 @@ public class CarService {
         carRepository.save(car);
     }
 
+//    public void addComment(String id, Comment comment){
+//        Car car = getCar(id);
+//        car.getCommentList().add(comment);
+//        carRepository.update(id, car);
+//    }
+
     // TODO: 03.05.2021 check car ownership
     public void deleteCar(String id) {
         Car car = getCar(id);
+        List<Comment> comments = car.getCommentList();
+        comments.forEach(comment -> commentRepository.deleteById(comment.getId()));
+
         if (!car.isRented()) {
             carRepository.deleteById(id);
         }
