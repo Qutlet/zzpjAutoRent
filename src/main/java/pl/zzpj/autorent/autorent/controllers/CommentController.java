@@ -37,11 +37,13 @@ public class CommentController {
 
     @PostMapping(path = "/comments", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity addComment(@RequestBody Comment comment) {
-        return ResponseEntity.ok(comment);
+        commentService.addComment(comment);
+        return ResponseEntity.ok().build();
     }
-    // TODO: end
+
     @DeleteMapping(path = "/comments/{id}")
     public ResponseEntity deleteComment(@PathVariable String id) {
+        commentService.deleteComment(id);
         return ResponseEntity.accepted().build();
     }
 
