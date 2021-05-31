@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import pl.zzpj.autorent.autorent.model.Comment;
+import pl.zzpj.autorent.autorent.services.CarService;
 import pl.zzpj.autorent.autorent.services.CommentService;
 
 import java.io.IOException;
@@ -17,6 +18,8 @@ public class CommentController {
 
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private CarService carService;
 
     @GetMapping(path = "/comments", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity getAllComments() throws IOException, InterruptedException {
@@ -38,6 +41,9 @@ public class CommentController {
     @PostMapping(path = "/comments", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity addComment(@RequestBody Comment comment) {
         commentService.addComment(comment);
+        carService.getCar(comment.getCarID())
+                .getCommentList()
+                .add(comment);
         return ResponseEntity.ok().build();
     }
 
