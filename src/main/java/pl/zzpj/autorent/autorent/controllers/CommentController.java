@@ -29,8 +29,8 @@ public class CommentController {
         return ResponseEntity.ok(comment);
     }
 
-    @GetMapping(path="/comments/{carID}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity getCommentsByClientID(@PathVariable String carID) throws IOException, InterruptedException {
+    @GetMapping(path="/comments/car/{carID}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity getCommentsByCarID(@PathVariable String carID) throws IOException, InterruptedException {
         final List<Comment> comments = commentService.getAllCommentsByCarID(carID);
         return ResponseEntity.ok(comments);
     }
