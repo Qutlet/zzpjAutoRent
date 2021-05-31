@@ -64,10 +64,6 @@ public class OfferService {
         offerRepository.deleteById(id);
     }
 
-    public List<Offer> getAllOffers() {
-        return offerRepository.retrieveAll();
-    }
-
     public List<Offer> getAllNoRentedOffers() {
         List<Offer> all = offerRepository.retrieveAll();
         all.removeIf(Offer::isRented);
