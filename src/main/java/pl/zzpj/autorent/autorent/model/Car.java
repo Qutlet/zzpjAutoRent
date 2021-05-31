@@ -5,9 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.zzpj.autorent.autorent.firestore.DocumentId;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class Car {
     @DocumentId
     private String id;
@@ -15,6 +19,8 @@ public class Car {
     private String carBrandName; // Skoda
     private String carModelName; // Fabia
     private boolean isRented;
+    private List<Comment> commentList;
+
     //Silnik
     //Moc silnika
     //kolor
@@ -30,6 +36,7 @@ public class Car {
         this.carName = carName;
         this.carBrandName = carBrandName;
         this.carModelName = carModelName;
+        this.commentList = new ArrayList<>();
     }
 
 }
