@@ -15,6 +15,7 @@ public class Car {
     private String carBrandName; // Skoda
     private String carModelName; // Fabia
     private boolean isRented;
+
     //Silnik
     //Moc silnika
     //kolor
