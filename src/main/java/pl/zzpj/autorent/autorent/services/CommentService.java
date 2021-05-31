@@ -2,7 +2,9 @@ package pl.zzpj.autorent.autorent.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.zzpj.autorent.autorent.model.Car;
 import pl.zzpj.autorent.autorent.model.Comment;
+import pl.zzpj.autorent.autorent.repositories.CarRepository;
 import pl.zzpj.autorent.autorent.repositories.CommentRepository;
 
 import java.io.IOException;
@@ -14,6 +16,7 @@ import java.util.stream.Collectors;
 public class CommentService {
 
     private CommentRepository commentRepository;
+    private CarRepository carRepository;
 
     @Autowired
     public CommentService(CommentRepository commentRepository) {
@@ -28,7 +31,6 @@ public class CommentService {
         comment.setId(UUID.randomUUID().toString());
         commentRepository.save(comment);
     }
-
     public void deleteComment(String id) {
         commentRepository.deleteById(id);
     }

@@ -42,11 +42,17 @@ public class CarService {
         carRepository.save(car);
     }
 
-//    public void addComment(String id, Comment comment){
-//        Car car = getCar(id);
-//        car.getCommentList().add(comment);
-//        carRepository.update(id, car);
-//    }
+   public void addComment(String id, Comment comment){
+        Car car = getCar(id);
+        car.getCommentList().add(comment);
+       carRepository.update(id, car);
+    }
+
+    public void deleteComment(String id, Comment comment){
+        Car car = getCar(id);
+        car.getCommentList().remove(comment);
+        carRepository.update(id, car);
+    }
 
     public void deleteCar(String id) {
         Car car = getCar(id);
