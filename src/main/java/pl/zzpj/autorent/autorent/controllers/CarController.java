@@ -33,8 +33,8 @@ public class CarController {
     }
 
     @PostMapping(path = "/cars", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity addCar(@RequestBody Car car) {
-        carService.addCar(car);
+    public ResponseEntity addCar(@RequestBody Car car, @RequestHeader("image-path") String path) {
+        carService.addCar(car,path);
         return ResponseEntity.ok().build();
     }
 
@@ -61,5 +61,9 @@ public class CarController {
         return ResponseEntity.ok(carService.getAllNoRentedCars());
     }
 
-
+//    @PutMapping(path = "/cars/photo/{id}")
+//    public ResponseEntity addPhoto(@PathVariable String photo) {
+//
+//        return ResponseEntity.ok().build();
+//    }
 }
