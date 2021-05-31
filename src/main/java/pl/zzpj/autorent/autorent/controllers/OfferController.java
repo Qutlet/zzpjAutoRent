@@ -44,12 +44,18 @@ public class OfferController {
     @PutMapping(path = "/offers/rent/{userid}/{id}")
     public ResponseEntity rentCar(@PathVariable String id, @PathVariable String userid) {
         offerService.updateOffer(id, userid);
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setLocation(URI.create("offers/rent/" + updatedOffer.getId()));
+//        return ResponseEntity.status(HttpStatus.NO_CONTENT).headers(headers).build();
         return ResponseEntity.ok().build();
     }
 
     @PutMapping(path = "/offers/return/{userid}/{id}")
     public ResponseEntity returnCar(@PathVariable String id, @PathVariable String userid) {
         offerService.updateOffer(id, userid);
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setLocation(URI.create("offers/return/" + updatedOffer.getId()));
+//        return ResponseEntity.status(HttpStatus.NO_CONTENT).headers(headers).build();
         return ResponseEntity.ok().build();
     }
 
@@ -64,5 +70,6 @@ public class OfferController {
         offerService.editOffer(id, offer);
         return ResponseEntity.ok().build();
     }
+
 
 }

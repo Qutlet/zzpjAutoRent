@@ -48,7 +48,9 @@ public class OfferService {
     // TODO: 03.05.2021 check offer creator
     // TODO: 03.05.2021 check if offer is live
     public void editOffer(String id, Offer offer) {
+        //offerRepository.save(offer);
         offerRepository.update(id, offer);
+        //return editedOffer;
     }
 
     public void addOffer(Offer offer) {
@@ -59,10 +61,17 @@ public class OfferService {
     //
 //
 //    // TODO: 03.05.2021 check offer creator
-
     public void deleteOffer(String id) {
+//        Offer offerToDelete = offerRepository.getOne(id);
+//        if (offerToDelete.isRented()) {
+//            return 1; //nie usunieto
+//        } else {
+//            offerRepository.deleteById(id);
+//        }
+//        return 0;//usunieto
         offerRepository.deleteById(id);
     }
+
 
     public List<Offer> getAllNoRentedOffers() {
         List<Offer> all = offerRepository.retrieveAll();
@@ -93,5 +102,6 @@ public class OfferService {
 
  //       return offerRepository.retrieveAll();
  //   }
+
 
 }
