@@ -50,10 +50,10 @@ public class CarService {
 
     public void deleteCar(String id) {
         Car car = getCar(id);
-        List<Comment> comments = car.getCommentList();
-        comments.forEach(comment -> commentRepository.deleteById(comment.getId()));
 
         if (!car.isRented()) {
+            List<Comment> comments = car.getCommentList();
+            comments.forEach(comment -> commentRepository.deleteById(comment.getId()));
             carRepository.deleteById(id);
         }
     }
