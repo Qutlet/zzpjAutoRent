@@ -8,6 +8,7 @@ import pl.zzpj.autorent.autorent.model.Comment;
 import pl.zzpj.autorent.autorent.services.CommentService;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -28,7 +29,12 @@ public class CommentController {
         return ResponseEntity.ok(comment);
     }
 
-    // TODO: end
+    @GetMapping(path="/comments/{carID}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity getCommentsByClientID(@PathVariable String carID) throws IOException, InterruptedException {
+        final List<Comment> comments = commentService.getAllCommentsByCarID(carID);
+        return ResponseEntity.ok(comments);
+    }
+
     @PostMapping(path = "/comments", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity addComment(@RequestBody Comment comment) {
         return ResponseEntity.ok(comment);
