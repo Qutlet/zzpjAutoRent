@@ -70,7 +70,7 @@ public class OfferService {
         return all;
     }
 
-    public List<Offer> getAllOffers() throws IOException, InterruptedException {
+//    public List<Offer> getAllOffers() throws IOException, InterruptedException {
 
 //        HttpRequest request = HttpRequest.newBuilder()
 //                .uri(URI.create("https://currency-converter5.p.rapidapi.com/currency/convert?format=json&from=EUR&to=PLN&amount=4"))
@@ -91,7 +91,7 @@ public class OfferService {
 //        System.out.println(response.body());
         //
 
-        return offerRepository.retrieveAll();
-    }
+ //       return offerRepository.retrieveAll();
+ //   }
 
 }
