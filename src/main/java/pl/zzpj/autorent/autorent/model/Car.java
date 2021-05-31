@@ -20,17 +20,15 @@ public class Car {
     private String carModelName; // Fabia
     private boolean isRented;
     private List<Comment> commentList;
-
-    //Silnik
-    //Moc silnika
-    //kolor
-    //skrzyna biegów
-    //paliwo (gaz/benzyna/ropa)
-    //Opis techniczny
-    //Kraj pochodzenia
-    //cena za dzien
-    // TODO: 03.05.2021 add all need fields
-
+    private double engine;       //1.4
+    private double enginePower;  //40kM
+    private String color;        //czerwony
+    private String gearBox;      //manualna/automatyczna
+    private String fuel;         //beznyna/diesel/gaz
+    private String description;  //fajna szybka furka
+    private String country;      //Czechy
+    private double priceForDay;  //100 za dzien
+    private String photo;
 
     public Car(String carName, String carBrandName, String carModelName) {
         this.carName = carName;
