@@ -17,4 +17,6 @@ public class Comment {
     private Date time;
     private String message;
 
+    public void setId(String toString) {
+    }
 }
