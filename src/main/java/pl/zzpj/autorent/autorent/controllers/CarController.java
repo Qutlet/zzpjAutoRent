@@ -40,13 +40,19 @@ public class CarController {
 
     @PutMapping(path = "/cars/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity editCar(@PathVariable String id, @RequestBody Car car) {
-        carService.updateCar(id,car);
+        carService.updateCar(id, car);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping(path = "/cars/rent/{id}")
     public ResponseEntity rentCar(@PathVariable String id) {
         carService.rentCar(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping(path = "/cars/return/{id}")
+    public ResponseEntity returnCar(@PathVariable String id) {
+        carService.returnCar(id);
         return ResponseEntity.ok().build();
     }
 
@@ -57,8 +63,10 @@ public class CarController {
     }
 
     @GetMapping(path = "/cars/available", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity getAllNoRented() {
+    public ResponseEntity getAllNoRented(){
         return ResponseEntity.ok(carService.getAllNoRentedCars());
     }
 
 }
+
+

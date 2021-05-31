@@ -22,11 +22,11 @@ public class CarService {
     public Car getCar(String id) {
         return carRepository.get(id).orElseThrow();
     }
-
-    // TODO: 03.05.2021 check car ownership
+//
+//    // TODO: 03.05.2021 check car ownership
     public void updateCar(String id, Car car) {
-        if (!car.isRented()) {
-            carRepository.update(id, car);
+        if (!car.isRented()){
+            carRepository.update(id,car);
         }
     }
 
@@ -36,15 +36,21 @@ public class CarService {
         carRepository.update(id, car);
     }
 
+    public void returnCar(String id) {
+        Car car = getCar(id);
+        car.setRented(false);
+        carRepository.update(id,car);
+    }
+  
     public void addCar(Car car) {
         car.setId(UUID.randomUUID().toString());
         carRepository.save(car);
     }
 
-    // TODO: 03.05.2021 check car ownership
+//    // TODO: 03.05.2021 check car ownership
     public void deleteCar(String id) {
         Car car = getCar(id);
-        if (!car.isRented()) {
+        if (!car.isRented()){
             carRepository.deleteById(id);
         }
     }
@@ -52,8 +58,6 @@ public class CarService {
     public List<Car> getAllCars() {
         return carRepository.retrieveAll();
     }
-
-    // TODO: 03.05.2021 add method getAllNoRentedCar
 
     public List<Car> getAllNoRentedCars() {
         List<Car> cars = carRepository.retrieveAll();

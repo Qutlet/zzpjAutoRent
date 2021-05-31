@@ -19,7 +19,7 @@ public class OfferController {
     private OfferService offerService;
 
     @GetMapping(path = "/offers/all", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity getAllOffers() throws IOException, InterruptedException {
+    public ResponseEntity getAllOffers() {
         return ResponseEntity.ok(offerService.getAllOffers());
     }
 
