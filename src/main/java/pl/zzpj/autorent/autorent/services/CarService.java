@@ -33,7 +33,7 @@ public class CarService {
     public void rentCar(String id) {
         Car car = getCar(id);
         car.setRented(true);
-        carRepository.update(id,car);
+        carRepository.update(id, car);
     }
 
     public void returnCar(String id) {
@@ -41,7 +41,7 @@ public class CarService {
         car.setRented(false);
         carRepository.update(id,car);
     }
-
+  
     public void addCar(Car car) {
         car.setId(UUID.randomUUID().toString());
         carRepository.save(car);
@@ -64,4 +64,5 @@ public class CarService {
         cars.removeIf(Car::isRented);
         return cars;
     }
+
 }

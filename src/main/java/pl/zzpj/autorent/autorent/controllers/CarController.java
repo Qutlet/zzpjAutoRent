@@ -31,6 +31,7 @@ public class CarController {
         return ResponseEntity.ok(cars);
     }
 
+
     @PostMapping(path = "/cars", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity addCar(@RequestBody Car car) {
         carService.addCar(car);
