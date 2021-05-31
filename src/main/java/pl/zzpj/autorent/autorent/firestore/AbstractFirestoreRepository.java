@@ -47,12 +47,16 @@ public abstract class AbstractFirestoreRepository<T> {
 
     }
 
+    public void deleteById(String id) {
+        collectionReference.document(id).delete();
+    }
+
     public List<T> retrieveAll() {
         ApiFuture<QuerySnapshot> querySnapshotApiFuture = collectionReference.get();
 
         try {
             List<QueryDocumentSnapshot> queryDocumentSnapshots = querySnapshotApiFuture.get().getDocuments();
-
+            System.out.println(queryDocumentSnapshots.get(0).toString());
             return queryDocumentSnapshots.stream()
                     .map(queryDocumentSnapshot -> queryDocumentSnapshot.toObject(parameterizedType))
                     .collect(Collectors.toList());
@@ -91,17 +95,24 @@ public abstract class AbstractFirestoreRepository<T> {
         ApiFuture<DocumentSnapshot> documentSnapshotApiFuture = documentReference.get();
 
         try {
+            T t = null;
             DocumentSnapshot documentSnapshot = documentSnapshotApiFuture.get();
 
             if (documentSnapshot.exists()) {
-                return Optional.ofNullable(documentSnapshot.toObject(parameterizedType));
+                t = documentSnapshot.toObject(parameterizedType);
             }
+            return Optional.of(t);
 
         } catch (InterruptedException | ExecutionException e) {
             log.error("Exception occurred retrieving: {} {}, {}", collectionName, documentId, e.getMessage());
         }
 
         return Optional.empty();
+
+    }
+
+    public void update(String documentId, T model){
+        ApiFuture<WriteResult> resultApiFuture = collectionReference.document(documentId).set(model);
 
     }
 
@@ -138,8 +149,6 @@ public abstract class AbstractFirestoreRepository<T> {
         }
         return null;
     }
-
-
 
     protected CollectionReference getCollectionReference() {
         return this.collectionReference;

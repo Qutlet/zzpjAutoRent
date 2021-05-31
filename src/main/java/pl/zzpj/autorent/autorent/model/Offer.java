@@ -3,9 +3,11 @@ package pl.zzpj.autorent.autorent.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.zzpj.autorent.autorent.model.Car;
+import org.springframework.data.annotation.Id;
+import pl.zzpj.autorent.autorent.firestore.DocumentId;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import java.sql.Date;
 
 @Data
@@ -14,51 +16,27 @@ import java.sql.Date;
 @Entity
 //@Table(name = "offers")
 public class Offer {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id;
-    private long carID;
-    private long ownerID;
-    private long clientID;
-    private float price;
+    @DocumentId
+    private String id;
+    private String carID;
+    private String ownerID;
+    private String clientID;
+    private double price;
     private String offerName;
     private String description;
-    private Date creationDate = new Date(new java.util.Date().getTime());
+    private Date creationDate;// = new Date(new java.util.Date().getTime());
     private String phone;
     private String email;
     private boolean rented;
     //zdiecie
     // TODO: 03.05.2021 add photo field
 
-    public Offer(long carID, long ownerID, float price, String offerName, String description, String phone, String email) {
-        this.carID = carID;
-        this.ownerID = ownerID;
-        this.price = price;
-        this.offerName = offerName;
-        this.description = description;
-        this.phone = phone;
-        this.email = email;
-        //this.isRented = isRented;
-    }
-
-//    public OfferEntity(int carID, int ownerID, float price, String offerName, String description, String phone, String email) {
-//        this.carID = carID;
-//        this.ownerID = ownerID;
-//        this.price = price;
-//        this.offerName = offerName;
-//        this.description = description;
-//        this.phone = phone;
-//        this.email = email;
-//        this.isRented = false;
-//    }
-
-
     public void setRented(boolean rented) {
         this.rented = rented;
     }
 
-    public void setClientID(long clientID) {
+
+    public void setClientID(String clientID) {
         this.clientID = clientID;
     }
 }

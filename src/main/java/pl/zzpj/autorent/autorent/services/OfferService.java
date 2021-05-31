@@ -6,8 +6,14 @@ import pl.zzpj.autorent.autorent.model.Offer;
 import pl.zzpj.autorent.autorent.repositories.CarRepository;
 import pl.zzpj.autorent.autorent.repositories.OfferRepository;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class OfferService {
@@ -19,18 +25,18 @@ public class OfferService {
         this.offerRepository = offerRepository;
     }
 
-    public Offer getOffer(long id) {
-        return offerRepository.get(String.valueOf(id)).orElseThrow();
+    public Offer getOffer(String id) {
+        return offerRepository.get(id).orElseThrow();
     }
 
     /**
      * this function is responsible for ending car rental
      */
-    public void updateOffer(long id, long userid) {
-        Optional<Offer> offerToUpdate = offerRepository.get(String.valueOf(id));
+    public void updateOffer(String id, String userid) {
+        Optional<Offer> offerToUpdate = offerRepository.get(id);
         //offerToUpdate.setClientID(userid);
         offerToUpdate.get().setClientID(userid);
-        if (userid == 0) {
+        if (userid.equals("0")) {
             offerToUpdate.get().setRented(false);
         } else {
             offerToUpdate.get().setRented(true);
@@ -41,35 +47,51 @@ public class OfferService {
 
     // TODO: 03.05.2021 check offer creator
     // TODO: 03.05.2021 check if offer is live
-    public void editOffer(Offer offer) {
-        offerRepository.save(offer);
-        //return editedOffer;
+    public void editOffer(String id, Offer offer) {
+        offerRepository.update(id, offer);
     }
 
     public void addOffer(Offer offer) {
+        offer.setId(UUID.randomUUID().toString());
         offerRepository.save(offer);
     }
 
     //
 //
 //    // TODO: 03.05.2021 check offer creator
-    public void deleteOffer(long id) {
-//        Offer offerToDelete = offerRepository.getOne(id);
-//        if (offerToDelete.isRented()) {
-//            return 1; //nie usunieto
-//        } else {
-//            offerRepository.deleteById(id);
-//        }
-//        return 0;//usunieto
+
+    public void deleteOffer(String id) {
+        offerRepository.deleteById(id);
     }
 
-    //
     public List<Offer> getAllNoRentedOffers() {
         List<Offer> all = offerRepository.retrieveAll();
         all.removeIf(Offer::isRented);
         return all;
     }
-//
-//    // TODO: 03.05.2021 add method to get all offers
+
+    public List<Offer> getAllOffers() throws IOException, InterruptedException {
+
+//        HttpRequest request = HttpRequest.newBuilder()
+//                .uri(URI.create("https://currency-converter5.p.rapidapi.com/currency/convert?format=json&from=EUR&to=PLN&amount=4"))
+//                .header("x-rapidapi-key", "2e775c2a61mshe8a9d515320ba79p148d59jsn25cb96372d73")
+//                .header("x-rapidapi-host", "currency-converter5.p.rapidapi.com")
+//                .method("GET", HttpRequest.BodyPublishers.noBody())
+//                .build();
+//        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+//        System.out.println(response.body());
+
+//        HttpRequest request = HttpRequest.newBuilder()
+//                .uri(URI.create("https://ip-geolocation-ipwhois-io.p.rapidapi.com/json/?ip=46.148.79.143"))
+//                .header("x-rapidapi-key", "2e775c2a61mshe8a9d515320ba79p148d59jsn25cb96372d73")
+//                .header("x-rapidapi-host", "ip-geolocation-ipwhois-io.p.rapidapi.com")
+//                .method("GET", HttpRequest.BodyPublishers.noBody())
+//                .build();
+//        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+//        System.out.println(response.body());
+        //
+
+        return offerRepository.retrieveAll();
+    }
 
 }

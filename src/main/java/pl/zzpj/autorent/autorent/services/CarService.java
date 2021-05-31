@@ -7,6 +7,7 @@ import pl.zzpj.autorent.autorent.model.Car;
 import pl.zzpj.autorent.autorent.repositories.CarRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class CarService {
@@ -18,38 +19,46 @@ public class CarService {
         this.carRepository = carRepository;
     }
 
-    //
-//    public CarEntity getCar(long id) {
-//        return carRepository.findById(id).orElseThrow();
-//    }
-//
-//    // TODO: 03.05.2021 check car ownership
-//    // TODO: 03.05.2021 check if car is rented before upgrade
-    public void updateCar(Car car) {
-        carRepository.save(car);
-        //return updatedCar;
+    public Car getCar(String id) {
+        return carRepository.get(id).orElseThrow();
     }
 
-    //
-//    // TODO: 03.05.2021 edit car
-//
+    // TODO: 03.05.2021 check car ownership
+    public void updateCar(String id, Car car) {
+        if (!car.isRented()) {
+            carRepository.update(id, car);
+        }
+    }
+
+    public void rentCar(String id) {
+        Car car = getCar(id);
+        car.setRented(true);
+        carRepository.update(id, car);
+    }
+
     public void addCar(Car car) {
+        car.setId(UUID.randomUUID().toString());
         carRepository.save(car);
     }
 
-    //
-//    // TODO: 03.05.2021 check car ownership
-//    // TODO: 03.05.2021 check if car is rented before deleting
-    public void deleteCar(long id, Car car) {
-        //carRepository.deleteById(id);
-        carRepository.delete(car);
+    // TODO: 03.05.2021 check car ownership
+    public void deleteCar(String id) {
+        Car car = getCar(id);
+        if (!car.isRented()) {
+            carRepository.deleteById(id);
+        }
     }
 
-    //
     public List<Car> getAllCars() {
         return carRepository.retrieveAll();
     }
-//
-//    // TODO: 03.05.2021 add method getAllNoRentedCar
-//
+
+    // TODO: 03.05.2021 add method getAllNoRentedCar
+
+    public List<Car> getAllNoRentedCars() {
+        List<Car> cars = carRepository.retrieveAll();
+        cars.removeIf(Car::isRented);
+        return cars;
+    }
+
 }
