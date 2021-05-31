@@ -43,6 +43,12 @@ public class CarService {
         carRepository.save(car);
     }
 
+//    public void addComment(String id, Comment comment){
+//        Car car = getCar(id);
+//        car.getCommentList().add(comment);
+//        carRepository.update(id, car);
+//    }
+
     // TODO: 03.05.2021 check car ownership
     public void deleteCar(String id) {
         Car car = getCar(id);
