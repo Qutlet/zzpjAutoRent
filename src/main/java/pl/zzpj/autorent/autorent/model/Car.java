@@ -2,23 +2,12 @@ package pl.zzpj.autorent.autorent.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import pl.zzpj.autorent.autorent.firestore.DocumentId;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-//@Table(name = "cars")
-//@EqualsAndHashCode(exclude = "offers")
 public class Car {
     @DocumentId
     private String id;
@@ -43,7 +32,6 @@ public class Car {
         this.carName = carName;
         this.carBrandName = carBrandName;
         this.carModelName = carModelName;
-        this.commentList = new ArrayList<>();
     }
 
 }

@@ -11,10 +11,8 @@ import javax.persistence.GenerationType;
 import java.sql.Date;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Entity
-//@Table(name = "offers")
+@AllArgsConstructor
 public class Offer {
     @DocumentId
     private String id;
@@ -34,7 +32,6 @@ public class Offer {
     public void setRented(boolean rented) {
         this.rented = rented;
     }
-
 
     public void setClientID(String clientID) {
         this.clientID = clientID;
