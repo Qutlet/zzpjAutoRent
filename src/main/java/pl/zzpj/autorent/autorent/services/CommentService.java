@@ -1,6 +1,7 @@
 package pl.zzpj.autorent.autorent.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pl.zzpj.autorent.autorent.model.Comment;
 import pl.zzpj.autorent.autorent.model.Offer;
 import pl.zzpj.autorent.autorent.repositories.CommentRepository;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class CommentService {
 
     private CommentRepository commentRepository;

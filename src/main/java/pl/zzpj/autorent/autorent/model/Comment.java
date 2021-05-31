@@ -1,22 +1,25 @@
 package pl.zzpj.autorent.autorent.model;
 
-import java.sql.Date;
 
+
+import com.google.cloud.Timestamp;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.zzpj.autorent.autorent.firestore.DocumentId;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 
 public class Comment {
     @DocumentId
     private String id;
     private String carID;
     private String clientID;
-    private Date time;
+    private Timestamp time;
     private String message;
 
-    public void setId(String toString) {
-    }
+    public void setId(String id) { this.id = id; }
+
 }
