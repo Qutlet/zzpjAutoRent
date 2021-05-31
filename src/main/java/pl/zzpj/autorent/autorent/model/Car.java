@@ -15,14 +15,16 @@ public class Car {
     private String carBrandName; // Skoda
     private String carModelName; // Fabia
     private boolean isRented;
-    //Silnik
-    //Moc silnika
-    //kolor
-    //skrzyna biegów
-    //paliwo (gaz/benzyna/ropa)
-    //Opis techniczny
-    //Kraj pochodzenia
-    //cena za dzien
+    private List<Comment> commentList;
+    private double engine;       //1.4
+    private double enginePower;  //40kM
+    private String color;        //czerwony
+    private String gearBox;      //manualna/automatyczna
+    private String fuel;         //beznyna/diesel/gaz
+    private String description;  //fajna szybka furka
+    private String country;      //Czechy
+    private double priceForDay;  //100 za dzien
+    private String photo;
     // TODO: 03.05.2021 add all need fields
 
 
