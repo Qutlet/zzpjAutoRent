@@ -19,6 +19,7 @@ import java.util.UUID;
 public class OfferService {
 
     private OfferRepository offerRepository;
+    private CarRepository carRepository;
 
     @Autowired
     public OfferService(OfferRepository offerRepository) {

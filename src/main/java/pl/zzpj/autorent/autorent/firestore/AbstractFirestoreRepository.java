@@ -4,7 +4,6 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.database.annotations.Nullable;
 import lombok.extern.slf4j.Slf4j;
-import pl.zzpj.autorent.autorent.model.Offer;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.*;

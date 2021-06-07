@@ -45,10 +45,6 @@ public class CarService {
         carRepository.update(id, car);
     }
 
-    public void addPhoto(String id, String string){
-
-    }
-
     public void addCar(Car car, String path) {
         car.setId(UUID.randomUUID().toString());
         StorageClient storageClient = StorageClient.getInstance(FirebaseApp.getInstance());
@@ -74,7 +70,8 @@ public class CarService {
     public void deleteCar(String id) {
         Car car = getCar(id);
         List<Comment> comments = car.getCommentList();
-        comments.forEach(comment -> commentRepository.deleteById(comment.getId()));
+        if (comments != null)
+            comments.forEach(comment -> commentRepository.deleteById(comment.getId()));
 
         if (!car.isRented()) {
             carRepository.deleteById(id);
