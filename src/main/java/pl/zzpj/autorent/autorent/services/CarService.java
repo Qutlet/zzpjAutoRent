@@ -32,7 +32,6 @@ public class CarService {
         return carRepository.get(id).orElseThrow();
     }
 
-    // TODO: 03.05.2021 check car ownership
     public void updateCar(String id, Car car) {
         if (!car.isRented()) {
             carRepository.update(id, car);
@@ -66,7 +65,6 @@ public class CarService {
 //        carRepository.update(id, car);
 //    }
 
-    // TODO: 03.05.2021 check car ownership
     public void deleteCar(String id) {
         Car car = getCar(id);
         List<Comment> comments = car.getCommentList();
@@ -81,8 +79,6 @@ public class CarService {
     public List<Car> getAllCars() {
         return carRepository.retrieveAll();
     }
-
-    // TODO: 03.05.2021 add method getAllNoRentedCar
 
     public List<Car> getAllNoRentedCars() {
         List<Car> cars = carRepository.retrieveAll();

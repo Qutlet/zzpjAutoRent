@@ -14,8 +14,12 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.zzpj.autorent.autorent.controllers.CarController;
+import pl.zzpj.autorent.autorent.model.Car;
 import pl.zzpj.autorent.autorent.repositories.CarRepository;
 import pl.zzpj.autorent.autorent.services.CarService;
+
+import java.sql.Time;
+import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -38,22 +42,54 @@ public class CarTest {
     @Autowired
     private CarService carService;
 
-//    @Before
-//    public void setUp() {
-//        carRepository.deleteAllInBatch();
-//
-//        assertThat(carRepository.count()).isEqualTo(0);
-//    }
+    Car car;
 
-//    @Test
-//    void contextLoads() {
+    @Before
+    public void setUp() {
+        car = new Car("test","test","test");
+        carService.addCar(car,"C:/user/Desktop/photo");
+    }
+
+    @Test
+    void contextLoads() {
 //        assertThat(carController).isNotNull();
-//    }
+    }
 
-//    @Test
-//    public void addCarTest() {
-//        //CarEntity car = carRepository.save(new CarEntity(1,"test","test","test"));
-//        CarEntity car = carService.addCar(new CarEntity(1, "test", "test", "test"));
-//        assertThat(carRepository.count()).isEqualTo(1);
-//    }
+    @Test
+    public void addCarTest() {
+        assertThat(carRepository.get(car.getId()).get().equals(car));
+    }
+
+    @Test
+    public void updateCarTest() {
+        Car car2 = new Car("newName","test","test");
+        carService.updateCar(car.getId(),car2);
+        assertThat(carRepository.get(car.getId()).get().equals(car2));
+    }
+
+    @Test
+    public void rentCarTest() {
+        carService.rentCar(car.getId());
+        assertThat(carRepository.get(car.getId()).get().isRented()).isFalse();
+    }
+
+    @Test
+    public void deleteCarTest() {
+        carService.deleteCar(car.getId());
+        assertThat(carRepository.get(car.getId()).get() == null);
+    }
+
+    @Test
+    public void getAllCarsTest() {
+        assertThat(carService.getAllCars().size() != 0);
+    }
+
+    @Test
+    public void getAllNoRentedCarsTest() throws InterruptedException {
+        int size = carService.getAllNoRentedCars().size();
+        carService.rentCar(car.getId());
+        TimeUnit.SECONDS.sleep(20);
+        assertThat(carService.getAllNoRentedCars().size()).isEqualTo(size-1);
+    }
+
 }

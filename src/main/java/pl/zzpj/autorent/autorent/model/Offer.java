@@ -36,4 +36,9 @@ public class Offer {
     public void setClientID(String clientID) {
         this.clientID = clientID;
     }
+
+    public Offer(String carID, String offerName) {
+        this.carID = carID;
+        this.offerName = offerName;
+    }
 }

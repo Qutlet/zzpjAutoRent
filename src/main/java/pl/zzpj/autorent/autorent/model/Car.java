@@ -37,4 +37,8 @@ public class Car {
         this.commentList = new ArrayList<>();
     }
 
+    public Car(String id, String carName) {
+        this.id = id;
+        this.carName = carName;
+    }
 }
