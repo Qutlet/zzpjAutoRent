@@ -20,7 +20,7 @@ public class Offer {
     private double price;
     private String offerName;
     private String description;
-    private Date creationDate;// = new Date(new java.util.Date().getTime());
+    //private Date creationDate;// = new Date(new java.util.Date().getTime());
     private String phone;
     private String email;
     private boolean rented;
