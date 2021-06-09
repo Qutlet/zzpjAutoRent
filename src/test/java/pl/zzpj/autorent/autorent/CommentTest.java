@@ -42,10 +42,10 @@ public class CommentTest {
 
     @Before
     public void setUp(){
-        comment = new Comment("testC", "test", "test", new Date(System.currentTimeMillis()) , "test");
+        comment = new Comment("testC", car.getId(), "test", new Date(System.currentTimeMillis()) , "test");
         commentService.addComment(comment);
-       // carService.addCar(car, "/Users/agatajasinska/Desktop/photo.png" );
-        //carService.addComment(comment.getCarID(), comment);
+        carService.addCar(car, "src/main/resources/memik.jpg" );
+        carService.addComment(comment.getCarID(), comment);
     }
 
     @Test
