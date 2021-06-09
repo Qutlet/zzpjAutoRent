@@ -45,14 +45,14 @@ public class CommentController {
     @PostMapping(path = "/comments", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity addComment(@RequestBody Comment comment) {
         commentService.addComment(comment);
-        carService.getCar(comment.getCarID())
-                .getCommentList()
-                .add(comment);
+        carService.addComment(comment.getCarID(), comment);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping(path = "/comments/{id}")
     public ResponseEntity deleteComment(@PathVariable String id) {
+        Comment comment = commentService.getComment(id);
+        carService.deleteComment(comment.getCarID(), comment);
         commentService.deleteComment(id);
         return ResponseEntity.accepted().build();
     }

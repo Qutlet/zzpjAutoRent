@@ -54,24 +54,29 @@ public class CarService {
             e.printStackTrace();
         }
         String str = car.getId() + "jpg";
-        storageClient.bucket().create(str,file, Bucket.BlobWriteOption.userProject("autorent-a82d9"));
+        storageClient.bucket().create(str, file, Bucket.BlobWriteOption.userProject("autorent-a82d9"));
         car.setPhoto(str);
         carRepository.save(car);
     }
 
-//    public void addComment(String id, Comment comment){
-//        Car car = getCar(id);
-//        car.getCommentList().add(comment);
-//        carRepository.update(id, car);
-//    }
+    public void addComment(String id, Comment comment) {
+        Car car = getCar(id);
+        car.getCommentList().add(comment);
+        carRepository.update(id, car);
+    }
+
+    public void deleteComment(String id, Comment comment) {
+        Car car = getCar(id);
+        car.getCommentList().remove(comment);
+        carRepository.update(id, car);
+    }
 
     public void deleteCar(String id) {
         Car car = getCar(id);
-        List<Comment> comments = car.getCommentList();
-        if (comments != null)
-            comments.forEach(comment -> commentRepository.deleteById(comment.getId()));
 
         if (!car.isRented()) {
+            List<Comment> comments = car.getCommentList();
+            comments.forEach(comment -> commentRepository.deleteById(comment.getId()));
             carRepository.deleteById(id);
         }
     }
