@@ -71,6 +71,17 @@ public class OfferService {
         return all;
     }
 
+    public List<Offer> getAllClientOffers(String clientID) {
+        List<Offer> all = offerRepository.retrieveAll();
+        all.removeIf(offer -> !offer.getClientID().equals(clientID));
+        return all;
+    }
+
+    public List<Offer> getAllOwnerOffers(String ownerID) {
+        List<Offer> all = offerRepository.retrieveAll();
+        all.removeIf(offer -> !offer.getOwnerID().equals(ownerID));
+        return all;
+    }
     public List<Offer> getAllOffers() {
 
 //        HttpRequest request = HttpRequest.newBuilder()

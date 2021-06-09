@@ -31,6 +31,20 @@ public class OfferController {
     }
 
     @CrossOrigin
+    @GetMapping(path = "/offers/active/{clientID}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity getAllClientOffers(@PathVariable String clientID) {
+        final List<Offer> offers = offerService.getAllClientOffers(clientID);
+        return ResponseEntity.ok(offers);
+    }
+
+    @CrossOrigin
+    @GetMapping(path = "/offers/active/{ownerID}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity getAllOwnerOffers(@PathVariable String ownerID) {
+        final List<Offer> offers = offerService.getAllOwnerOffers(ownerID);
+        return ResponseEntity.ok(offers);
+    }
+
+    @CrossOrigin
     @GetMapping(path = "/offers/{id}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity getOfferById(@PathVariable String id) {
         final Offer offer = offerService.getOffer(id);
