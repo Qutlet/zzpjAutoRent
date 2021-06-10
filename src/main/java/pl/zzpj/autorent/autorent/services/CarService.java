@@ -44,18 +44,8 @@ public class CarService {
         carRepository.update(id, car);
     }
 
-    public void addCar(Car car, String path) {
+    public void addCar(Car car) {
         car.setId(UUID.randomUUID().toString());
-        StorageClient storageClient = StorageClient.getInstance(FirebaseApp.getInstance());
-        InputStream file = null;
-        try {
-            file = new FileInputStream(path);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        String str = car.getId() + "jpg";
-        storageClient.bucket().create(str, file, Bucket.BlobWriteOption.userProject("autorent-a82d9"));
-        car.setPhoto(str);
         carRepository.save(car);
     }
 
