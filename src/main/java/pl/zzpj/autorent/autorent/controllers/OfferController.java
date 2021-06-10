@@ -24,6 +24,12 @@ public class OfferController {
     }
 
     @CrossOrigin
+    @GetMapping(path = "/api/places", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity getPlaces() throws IOException, InterruptedException {
+        return ResponseEntity.ok(offerService.getPlaces());
+    }
+
+    @CrossOrigin
     @GetMapping(path = "/offers", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity getAllNoRentedOffers() {
         final List<Offer> offers = offerService.getAllNoRentedOffers();
@@ -31,7 +37,7 @@ public class OfferController {
     }
 
     @CrossOrigin
-    @GetMapping(path = "/offers/active/{clientID}", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/offers/activeRented/{clientID}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity getAllClientOffers(@PathVariable String clientID) {
         final List<Offer> offers = offerService.getAllClientOffers(clientID);
         return ResponseEntity.ok(offers);
@@ -46,7 +52,7 @@ public class OfferController {
 
     @CrossOrigin
     @GetMapping(path = "/offers/{id}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity getOfferById(@PathVariable String id) {
+    public ResponseEntity getOfferById(@PathVariable String id) throws IOException, InterruptedException {
         final Offer offer = offerService.getOffer(id);
         return ResponseEntity.ok(offer);
     }
