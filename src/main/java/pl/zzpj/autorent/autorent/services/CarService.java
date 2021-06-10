@@ -1,6 +1,10 @@
 package pl.zzpj.autorent.autorent.services;
 
+import com.google.api.services.storage.Storage;
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.Bucket;
+import com.google.cloud.storage.StorageOptions;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.cloud.StorageClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,7 @@ import pl.zzpj.autorent.autorent.repositories.CommentRepository;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,6 +38,7 @@ public class CarService {
     }
 
     public void updateCar(String id, Car car) {
+        car.setId(id);
         if (!car.isRented()) {
             carRepository.update(id, car);
         }
@@ -44,18 +50,8 @@ public class CarService {
         carRepository.update(id, car);
     }
 
-    public void addCar(Car car, String path) {
+    public void addCar(Car car) {
         car.setId(UUID.randomUUID().toString());
-        StorageClient storageClient = StorageClient.getInstance(FirebaseApp.getInstance());
-        InputStream file = null;
-        try {
-            file = new FileInputStream(path);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        String str = car.getId() + "jpg";
-        storageClient.bucket().create(str,file, Bucket.BlobWriteOption.userProject("autorent-a82d9"));
-        car.setPhoto(str);
         carRepository.save(car);
     }
 

@@ -46,8 +46,8 @@ public class CarTest {
 
     @Before
     public void setUp() {
-        car = new Car("test","test","test");
-        carService.addCar(car,"C:/user/Desktop/photo");
+        car = new Car("test", "test", "test");
+        carService.addCar(car);
     }
 
     @Test

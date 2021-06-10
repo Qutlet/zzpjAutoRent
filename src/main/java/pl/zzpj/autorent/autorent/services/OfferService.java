@@ -26,9 +26,24 @@ public class OfferService {
         this.offerRepository = offerRepository;
     }
 
-    public Offer getOffer(String id) {
+    public Offer getOffer(String id) throws IOException, InterruptedException {
+
+
         return offerRepository.get(id).orElseThrow();
     }
+
+    public String getPlaces() throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://opentripmap-places-v1.p.rapidapi.com/en/places/radius?lat=51.855279&lon=19.39332&radius=50000&kinds=tourist_object"))
+                .header("x-rapidapi-key", "2e775c2a61mshe8a9d515320ba79p148d59jsn25cb96372d73")
+                .header("x-rapidapi-host", "opentripmap-places-v1.p.rapidapi.com")
+                .method("GET", HttpRequest.BodyPublishers.noBody())
+                .build();
+        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        //System.out.println(response.body());
+        return response.body();
+    }
+
 
     /**
      * this function is responsible for ending car rental
@@ -52,6 +67,7 @@ public class OfferService {
     public void addOffer(Offer offer) {
         offer.setId(UUID.randomUUID().toString());
         offerRepository.save(offer);
+
     }
 
    // TODO: 03.05.2021 check offer creator

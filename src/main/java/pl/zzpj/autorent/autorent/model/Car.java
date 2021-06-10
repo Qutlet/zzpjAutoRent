@@ -37,6 +37,24 @@ public class Car {
         this.commentList = new ArrayList<>();
     }
 
+    public Car(String id, String carName, String carBrandName, String carModelName, boolean isRented, double engine, double enginePower, String color, String gearBox, String fuel, String description, String country, double priceForDay, String photo) {
+        this.id = id;
+        this.carName = carName;
+        this.carBrandName = carBrandName;
+        this.carModelName = carModelName;
+        this.isRented = isRented;
+        this.engine = engine;
+        this.enginePower = enginePower;
+        this.color = color;
+        this.gearBox = gearBox;
+        this.fuel = fuel;
+        this.description = description;
+        this.country = country;
+        this.priceForDay = priceForDay;
+        this.photo = photo;
+        this.commentList = new ArrayList<>();
+    }
+
     public Car(String id, String carName) {
         this.id = id;
         this.carName = carName;

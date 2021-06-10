@@ -32,8 +32,8 @@ public class CarController {
 
     @CrossOrigin
     @PostMapping(path = "/cars", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity addCar(@RequestBody Car car, @RequestHeader("image-path") String path) {
-        carService.addCar(car,path);
+    public ResponseEntity addCar(@RequestBody Car car) {
+        carService.addCar(car);
         return ResponseEntity.ok().build();
     }
 
@@ -64,9 +64,4 @@ public class CarController {
         return ResponseEntity.ok(carService.getAllNoRentedCars());
     }
 
-//    @PutMapping(path = "/cars/photo/{id}")
-//    public ResponseEntity addPhoto(@PathVariable String photo) {
-//
-//        return ResponseEntity.ok().build();
-//    }
 }
