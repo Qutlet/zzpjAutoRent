@@ -55,6 +55,7 @@ public class OfferTest {
 
         @Test
         public void addOfferTest() {
+
             assertThat(offerRepository.get(offer.getId()).get().equals(offer));
         }
 
