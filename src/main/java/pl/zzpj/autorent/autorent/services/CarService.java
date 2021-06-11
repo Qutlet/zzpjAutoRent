@@ -1,19 +1,12 @@
 package pl.zzpj.autorent.autorent.services;
 
-import com.google.cloud.storage.Bucket;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.cloud.StorageClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import pl.zzpj.autorent.autorent.model.Car;
 import pl.zzpj.autorent.autorent.model.Comment;
 import pl.zzpj.autorent.autorent.repositories.CarRepository;
 import pl.zzpj.autorent.autorent.repositories.CommentRepository;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.UUID;
 
