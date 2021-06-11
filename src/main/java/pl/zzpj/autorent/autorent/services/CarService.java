@@ -2,7 +2,6 @@ package pl.zzpj.autorent.autorent.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import pl.zzpj.autorent.autorent.model.Car;
 import pl.zzpj.autorent.autorent.model.Comment;
 import pl.zzpj.autorent.autorent.repositories.CarRepository;
