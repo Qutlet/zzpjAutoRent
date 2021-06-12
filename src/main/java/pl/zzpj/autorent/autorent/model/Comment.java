@@ -16,8 +16,8 @@ import java.util.Date;
 public class Comment {
     @DocumentId
     private String id;
-    private String carID;
-    private String clientID;
+    private String carId;
+    private String clientId;
     @ServerTimestamp
     private Date time;
     private String message;

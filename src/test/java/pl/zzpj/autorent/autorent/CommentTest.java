@@ -37,15 +37,15 @@ public class CommentTest {
     private CarService carService;
 
     Comment comment;
-    Car car = new Car("test", "test", "test");
-
+    Car car;
 
     @Before
     public void setUp(){
+        car = new Car("test", "test", "test");
+        carService.addCar(car);
         comment = new Comment("testC", car.getId(), "test", new Date(System.currentTimeMillis()) , "test");
         commentService.addComment(comment);
-//        carService.addCar(car, "C:\\Users\\Monika\\Desktop\\Pracownia\\zzpjAutoRent\\src\\main\\resources\\memik.jpg" );
-//        carService.addComment(comment.getCarID(), comment);
+        carService.addComment(comment.getCarId(), comment);
     }
 
     @Test
@@ -59,11 +59,11 @@ public class CommentTest {
         assertThat(commentRepository.get(comment.getId()).get() == null);
     }
 
-//    @Test
-//    public void deleteCarAndCommentsTest(){
-//        carService.deleteCar(car.getId());
-//        assertThat(commentRepository.get(comment.getId()).get() == null);
-//    }
+    @Test
+    public void deleteCarAndCommentsTest(){
+        carService.deleteCar(car.getId());
+        assertThat(commentRepository.get(comment.getId()).get() == null);
+    }
 
     @Test
     public void getAllCommentsTest() throws IOException, InterruptedException {
@@ -71,8 +71,9 @@ public class CommentTest {
     }
 
 //    @Test
-//    public void  getAllCommentsByCarIDTest() throws IOException, InterruptedException {
-//        assertThat(commentService.getAllCommentsByCarID(car.getId()).size() !=0);
+//    public void  getAllCommentsByCarIdTest() throws IOException, InterruptedException {
+//        assertThat(commentService.getAllCommentsByCarId(car.getId()).size() != 0);
 //    }
+
 
 }
