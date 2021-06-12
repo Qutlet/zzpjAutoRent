@@ -71,4 +71,10 @@ public class CarController {
         return ResponseEntity.ok(carService.getAllNoRentedCars());
     }
 
+    @CrossOrigin
+    @GetMapping(path = "/cars/available/{ownerId}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity getAllNoRentedFor(@PathVariable String ownerId) {
+        return ResponseEntity.ok(carService.getAllNoRentedCarsFor(ownerId));
+    }
+
 }

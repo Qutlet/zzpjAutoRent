@@ -73,4 +73,10 @@ public class CarService {
         return cars;
     }
 
+    public List<Car> getAllNoRentedCarsFor(String ownerId) {
+        List<Car> cars = carRepository.retrieveAll();
+        cars.removeIf(c -> (!c.isRented() && c.getOwnerId().equals(ownerId)));
+        return cars;
+    }
+
 }
