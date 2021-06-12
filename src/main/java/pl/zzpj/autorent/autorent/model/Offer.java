@@ -3,17 +3,13 @@ package pl.zzpj.autorent.autorent.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 import pl.zzpj.autorent.autorent.firestore.DocumentId;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import java.sql.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 //@Table(name = "offers")
 public class Offer {
     @DocumentId

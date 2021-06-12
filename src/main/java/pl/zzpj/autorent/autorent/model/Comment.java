@@ -1,10 +1,10 @@
 package pl.zzpj.autorent.autorent.model;
 
-import java.sql.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import pl.zzpj.autorent.autorent.firestore.DocumentId;
+
+import java.sql.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
