@@ -37,7 +37,7 @@ public class CommentController {
 
     @GetMapping(path="/comments/car/{carId}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity getCommentsByCarId(@PathVariable String carId) throws IOException, InterruptedException {
-        final List<Comment> comments = commentService.getAllCommentsByCarId(carId);
+        final List<Comment> comments = commentService.getAllCommentsByCarID(carId);
         return ResponseEntity.ok(comments);
     }
 
@@ -45,14 +45,14 @@ public class CommentController {
     @PostMapping(path = "/comments", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity addComment(@RequestBody Comment comment) {
         commentService.addComment(comment);
-        carService.addComment(comment.getCarId(), comment);
+        carService.addComment(comment.getCarID(), comment);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping(path = "/comments/{id}")
     public ResponseEntity deleteComment(@PathVariable String id) {
         Comment comment = commentService.getComment(id);
-        carService.deleteComment(comment.getCarId(), comment);
+        carService.deleteComment(comment.getCarID(), comment);
         commentService.deleteComment(id);
         return ResponseEntity.accepted().build();
     }

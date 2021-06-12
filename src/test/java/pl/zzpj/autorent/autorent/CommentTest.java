@@ -45,7 +45,7 @@ public class CommentTest {
         carService.addCar(car);
         comment = new Comment("testC", car.getId(), "test", new Date(System.currentTimeMillis()) , "test");
         commentService.addComment(comment);
-        carService.addComment(comment.getCarId(), comment);
+        carService.addComment(comment.getCarID(), comment);
     }
 
     @Test
@@ -70,10 +70,10 @@ public class CommentTest {
         assertThat(commentService.getAllComments().size() !=0 );
     }
 
-//    @Test
-//    public void  getAllCommentsByCarIdTest() throws IOException, InterruptedException {
-//        assertThat(commentService.getAllCommentsByCarId(car.getId()).size() != 0);
-//    }
+    @Test
+    public void  getAllCommentsByCarIdTest() throws IOException, InterruptedException {
+        assertThat(commentService.getAllCommentsByCarID(car.getId()).size() != 0);
+   }
 
 
 }
