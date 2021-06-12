@@ -39,10 +39,10 @@ public class CommentService {
         return commentRepository.retrieveAll();
     }
 
-    public List<Comment> getAllCommentsByCarID(String carId) throws IOException, InterruptedException {
+    public List<Comment> getAllCommentsByCarId(String carId) throws IOException, InterruptedException {
         List<Comment> comments = commentRepository.retrieveAll()
                 .stream()
-                .filter( comment -> comment.getCarID().equals(carId))
+                .filter( comment -> comment.getCarId().equals(carId))
                 .collect(Collectors.toList());
         return comments;
     }
