@@ -15,6 +15,7 @@ import java.util.List;
 public class Car {
     @DocumentId
     private String id;
+    private String ownerId; // id właściciela
     private String carName; //Nazwa samochodu np.: szybka fabia
     private String carBrandName; // Skoda
     private String carModelName; // Fabia
@@ -37,8 +38,9 @@ public class Car {
         this.commentList = new ArrayList<>();
     }
 
-    public Car(String id, String carName, String carBrandName, String carModelName, boolean isRented, double engine, double enginePower, String color, String gearBox, String fuel, String description, String country, double priceForDay, String photo) {
+    public Car(String id,String ownerId, String carName, String carBrandName, String carModelName, boolean isRented, double engine, double enginePower, String color, String gearBox, String fuel, String description, String country, double priceForDay, String photo) {
         this.id = id;
+        this.ownerId = ownerId;
         this.carName = carName;
         this.carBrandName = carBrandName;
         this.carModelName = carModelName;
