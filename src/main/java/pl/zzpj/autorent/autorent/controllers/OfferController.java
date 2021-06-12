@@ -30,6 +30,12 @@ public class OfferController {
     }
 
     @CrossOrigin
+    @GetMapping(path = "/api/conversionRate/{currId}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity getConversionRate(@PathVariable String currId) throws IOException {
+        return ResponseEntity.ok(offerService.getConversionRate(currId));
+    }
+
+    @CrossOrigin
     @GetMapping(path = "/offers", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity getAllNoRentedOffers() {
         final List<Offer> offers = offerService.getAllNoRentedOffers();

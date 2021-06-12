@@ -1,5 +1,8 @@
 package pl.zzpj.autorent.autorent.services;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.zzpj.autorent.autorent.model.Offer;
@@ -7,7 +10,11 @@ import pl.zzpj.autorent.autorent.repositories.CarRepository;
 import pl.zzpj.autorent.autorent.repositories.OfferRepository;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URI;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -42,6 +49,17 @@ public class OfferService {
         HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
         //System.out.println(response.body());
         return response.body();
+    }
+
+
+    public String getConversionRate(String currency) throws IOException{
+        String url_str = "https://v6.exchangerate-api.com/v6/80d42cc4b1182ff527f16534/pair/PLN/" + currency;
+        URL url = new URL(url_str);
+        HttpURLConnection request = (HttpURLConnection) url.openConnection();
+        request.connect();
+        JsonElement root = JsonParser.parseReader(new InputStreamReader((InputStream) request.getContent()));
+        JsonObject jsonobj = root.getAsJsonObject();
+        return jsonobj.get("result").getAsString();
     }
 
 
