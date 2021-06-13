@@ -1,19 +1,20 @@
 package pl.zzpj.autorent.autorent.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import pl.zzpj.autorent.autorent.model.Car;
 import pl.zzpj.autorent.autorent.services.CarService;
 
-import java.net.URI;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
+@Component
 public class CarController {
 
     @Autowired
@@ -21,9 +22,17 @@ public class CarController {
 
     @GetMapping(path = "/cars", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity getAllCars() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            String username = ((UserDetails)principal).getUsername();
+        } else {
+            String username = principal.toString();
+        }
         final List<Car> cars = carService.getAllCars();
         return ResponseEntity.ok(cars);
     }
+
 
     @GetMapping(path = "/cars/{id}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity getCar(@PathVariable String id) {

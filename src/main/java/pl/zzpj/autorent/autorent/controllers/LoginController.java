@@ -27,14 +27,15 @@ public class LoginController {
 
     private final UserService userService;
     private final JwtUtils jwtUtils;
-    AuthenticationManager authenticationManager;
-    RefreshTokenService refreshTokenService;
+    private AuthenticationManager authenticationManager;
+    private RefreshTokenService refreshTokenService;
 
 
 
-    public LoginController(UserService userService, JwtUtils jwtUtils, RefreshTokenService refreshTokenService) {
+    public LoginController(UserService userService, JwtUtils jwtUtils, AuthenticationManager authenticationManager, RefreshTokenService refreshTokenService) {
         this.userService = userService;
         this.jwtUtils = jwtUtils;
+        this.authenticationManager = authenticationManager;
         this.refreshTokenService = refreshTokenService;
     }
 
@@ -43,10 +44,9 @@ public class LoginController {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-
+        System.out.println(loginRequest.getUsername());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
-
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)

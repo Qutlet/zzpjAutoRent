@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import pl.zzpj.autorent.autorent.repositories.UserRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -24,14 +25,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final AuthEntryPointJwt unauthorizedHandler;
 
-    public SecurityConfig(@Qualifier("userDetailsService") UserDetailsService userDetailsService, AuthEntryPointJwt unauthorizedHandler) {
+    private final UserRepository userRepository;
+
+    private final JwtUtils jwtTokenUtil;
+
+    public SecurityConfig(@Qualifier("userDetailsService") UserDetailsService userDetailsService, AuthEntryPointJwt unauthorizedHandler, UserRepository userRepository, JwtUtils jwtTokenUtil) {
         this.userDetailsService = userDetailsService;
         this.unauthorizedHandler = unauthorizedHandler;
+        this.userRepository = userRepository;
+        this.jwtTokenUtil = jwtTokenUtil;
     }
 
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
-        return new AuthTokenFilter();
+        return new AuthTokenFilter(jwtTokenUtil, userRepository);
     }
 
     @Autowired
@@ -51,6 +58,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/signin").permitAll()
+                .and()
+                .authorizeRequests().antMatchers("/cars").hasRole("USER")
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
