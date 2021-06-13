@@ -12,6 +12,7 @@ import pl.zzpj.autorent.autorent.repositories.UserRepository;
 import pl.zzpj.autorent.autorent.security.UserDto;
 
 import java.util.Collections;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -43,6 +44,16 @@ public class UserService {
 
     private boolean emailExists(String email) {
         return repository.findBy("email", email) != null;
+    }
+
+    public Long getUserIdByEmail(String email) {
+        Optional<User> userOptional = repository.findBy("email", email).get(0);
+        if(userOptional.isPresent()) {
+            return userOptional.get().getId();
+        }
+        else {
+            return null;
+        }
     }
 
     @Bean

@@ -8,12 +8,22 @@ public class JwtResponse {
     private String email;
     private String refreshToken;
     private final List<String> roles;
+    private String userId;
 
-    public JwtResponse(String accessToken, String email, String refreshToken, List<String> roles) {
+    public JwtResponse(String accessToken, String email, String refreshToken, List<String> roles, String userId) {
         this.token = accessToken;
         this.email = email;
         this.refreshToken = refreshToken;
         this.roles = roles;
+        this.userId = userId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getAccessToken() {
