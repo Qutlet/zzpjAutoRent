@@ -53,6 +53,7 @@ public abstract class AbstractFirestoreRepository<T> {
 
     public List<T> retrieveAll() {
         ApiFuture<QuerySnapshot> querySnapshotApiFuture = collectionReference.get();
+
         try {
             List<QueryDocumentSnapshot> queryDocumentSnapshots = querySnapshotApiFuture.get().getDocuments();
             System.out.println(queryDocumentSnapshots.get(0).toString());
@@ -67,6 +68,27 @@ public abstract class AbstractFirestoreRepository<T> {
 
     }
 
+    @Nullable
+    public ArrayList<Optional<T>> findBy(String fieldName, String fieldValue) {
+        Query query = collectionReference.whereEqualTo(fieldName, fieldValue);
+        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+        ArrayList<Optional<T>> result = new ArrayList<>();
+
+        try {
+            for (DocumentSnapshot document : querySnapshot.get().getDocuments()) {
+                result.add(Optional.ofNullable(document.toObject(parameterizedType)));
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        if(result.size() > 0) {
+            return result;
+        }
+        else {
+            return null;
+        }
+    }
 
     public Optional<T> get(String documentId) {
         DocumentReference documentReference = collectionReference.document(documentId);

@@ -38,7 +38,6 @@ public class CarService {
     }
 
     public void addCar(Car car) {
-        car.setId(UUID.randomUUID().toString());
         carRepository.save(car);
     }
 
