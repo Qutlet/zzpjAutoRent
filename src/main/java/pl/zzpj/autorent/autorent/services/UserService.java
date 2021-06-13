@@ -33,6 +33,7 @@ public class UserService {
         }
         //TODO: Add validation
         User user = new User();
+        user.setId(repository.generateNewDocumentId());
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
@@ -46,7 +47,7 @@ public class UserService {
         return repository.findBy("email", email) != null;
     }
 
-    public Long getUserIdByEmail(String email) {
+    public String getUserIdByEmail(String email) {
         Optional<User> userOptional = repository.findBy("email", email).get(0);
         if(userOptional.isPresent()) {
             return userOptional.get().getId();

@@ -50,7 +50,7 @@ public class LoginController {
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
-        String userId = Long.toString(userService.getUserIdByEmail(loginRequest.getUsername()));
+        String userId = userService.getUserIdByEmail(loginRequest.getUsername());
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(loginRequest.getUsername());
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getUsername(),

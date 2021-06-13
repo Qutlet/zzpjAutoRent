@@ -3,10 +3,8 @@ package pl.zzpj.autorent.autorent.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.zzpj.autorent.autorent.firestore.DocumentId;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.util.List;
 
 @Data
@@ -14,15 +12,22 @@ import java.util.List;
 @NoArgsConstructor
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @DocumentId
+    private String id;
     private String firstName;
     private String lastName;
     private String password;
     private String matchingPassword;
     private String email;
     private List<String> rolesNames;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;

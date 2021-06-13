@@ -30,7 +30,6 @@ public abstract class AbstractFirestoreRepository<T> {
     public boolean save(T model) {
         String documentId = getDocumentId(model);
         ApiFuture<WriteResult> resultApiFuture = collectionReference.document(documentId).set(model);
-
         try {
             log.info("{}-{} saved at{}", collectionName, documentId, resultApiFuture.get().getUpdateTime());
             return true;
@@ -156,5 +155,10 @@ public abstract class AbstractFirestoreRepository<T> {
 
     protected Class<T> getType() {
         return this.parameterizedType;
+    }
+
+    public String generateNewDocumentId() {
+        DocumentReference ref = collectionReference.document();
+        return ref.getId();
     }
 }
