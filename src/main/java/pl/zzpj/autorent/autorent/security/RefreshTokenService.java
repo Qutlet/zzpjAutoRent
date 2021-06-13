@@ -1,5 +1,6 @@
 package pl.zzpj.autorent.autorent.security;
 
+import com.google.cloud.Timestamp;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import pl.zzpj.autorent.autorent.model.security_model.RefreshToken;
 import pl.zzpj.autorent.autorent.repositories.RefreshTokenRepository;
 import pl.zzpj.autorent.autorent.repositories.UserRepository;
 
-import java.time.Instant;
+import java.util.Calendar;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -39,11 +40,11 @@ public class RefreshTokenService {
         return refreshTokenRepository.findBy("token", token).get(0);
     }
 
-    public RefreshToken createRefreshToken(Long userId) {
+    public RefreshToken createRefreshToken(String username) {
         RefreshToken refreshToken = new RefreshToken();
 
-        refreshToken.setUserId(Long.toString(userId));
-        refreshToken.setExpiryDate(Instant.now().plusMillis(refreshTokenDurationMs));
+        refreshToken.setUsername(username);
+        refreshToken.setExpiryDate(calculateTimestampOfExpiration());
         refreshToken.setToken(UUID.randomUUID().toString());
 
         refreshTokenRepository.save(refreshToken);
@@ -51,7 +52,7 @@ public class RefreshTokenService {
     }
 
     public RefreshToken verifyExpiration(RefreshToken token) throws TokenRefreshException {
-        if (token.getExpiryDate().compareTo(Instant.now()) < 0) {
+        if (token.getExpiryDate().compareTo(Timestamp.now()) < 0) {
             refreshTokenRepository.delete(token);
             throw new TokenRefreshException(token.getToken(), "Refresh token was expired. Please make a new signin request");
         }
@@ -68,8 +69,8 @@ public class RefreshTokenService {
         }
     }
 
-    public String generateTokenByUserId(String userId) throws GenerateTokenException {
-        Optional<User> userFromDatabase = userRepository.findBy("id", userId).get(0);
+    public String generateTokenByUserId(String username) throws GenerateTokenException {
+        Optional<User> userFromDatabase = userRepository.findBy("email", username).get(0);
         if (userFromDatabase.isPresent()) {
             User user = userFromDatabase.get();
             CustomUserDetails userDetails = new CustomUserDetails(user);
@@ -78,5 +79,16 @@ public class RefreshTokenService {
         else {
             throw new GenerateTokenException();
         }
+    }
+
+    private Timestamp calculateTimestampOfExpiration() {
+        long retryDate = System.currentTimeMillis();
+
+        Timestamp now = Timestamp.now();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(now.toDate());
+        cal.add(Calendar.MILLISECOND, refreshTokenDurationMs);
+        Timestamp later = Timestamp.of(cal.getTime());
+        return later;
     }
 }
