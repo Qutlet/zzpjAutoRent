@@ -44,7 +44,6 @@ public class LoginController {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-        System.out.println(loginRequest.getUsername());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
@@ -52,8 +51,10 @@ public class LoginController {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
+        RefreshToken refreshToken = refreshTokenService.createRefreshToken(loginRequest.getUsername());
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getUsername(),
+                refreshToken.getToken(),
                 roles));
     }
 
@@ -65,8 +66,8 @@ public class LoginController {
         RefreshToken token = refreshTokenService.findByToken(requestRefreshToken).get();
         try {
             token = refreshTokenService.verifyExpiration(token);
-            String userId = token.getUserId();
-            String tokenString = refreshTokenService.generateTokenByUserId(userId);
+            String username = token.getUsername();
+            String tokenString = refreshTokenService.generateTokenByUserId(username);
             return ResponseEntity.ok(new TokenRefreshResponse(tokenString, requestRefreshToken));
         } catch (TokenRefreshException | GenerateTokenException tokenRefreshException) {
             tokenRefreshException.printStackTrace();
