@@ -21,12 +21,23 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository repository;
 
+    /**
+     * Constructor
+     * @param repository
+     * @param passwordEncoder
+     */
     @Autowired
     public UserService(UserRepository repository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * Registers new user
+     * @param userDto
+     * @return
+     * @throws UserAlreadyExistException
+     */
     public boolean registerNewUserAccount(UserDto userDto) throws UserAlreadyExistException {
         if (emailExists(userDto.getEmail())) {
             throw new UserAlreadyExistException("There is an account with that email address: " + userDto.getEmail());
@@ -43,10 +54,20 @@ public class UserService {
         return repository.save(user);
     }
 
+    /**
+     * Checks if email currently exist in database
+     * @param email
+     * @return
+     */
     private boolean emailExists(String email) {
         return repository.findBy("email", email) != null;
     }
 
+    /**
+     * Gets user by its e-mail
+     * @param email
+     * @return
+     */
     public String getUserIdByEmail(String email) {
         Optional<User> userOptional = repository.findBy("email", email).get(0);
         if(userOptional.isPresent()) {
