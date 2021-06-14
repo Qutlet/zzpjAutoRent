@@ -13,7 +13,10 @@ public class Message {
     @ServerTimestamp
     private Date creationTime;
 
-
+    /**
+     * returns string representation of a message
+     * @return
+     */
     @Override
     public String toString(){
         return "{\"Message\":{"
