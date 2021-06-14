@@ -17,6 +17,11 @@ public class RegisterController {
     @Autowired
     private UserService userService;
 
+    /**
+     * Registers new user
+     * @param userDto
+     * @return
+     */
     @PostMapping(path = "/register", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity registerUser(@RequestBody UserDto userDto) {
         try {

@@ -22,26 +22,46 @@ public class CommentController {
     @Autowired
     private CarService carService;
 
-
+    /**
+     * Gets all comments
+     * @return
+     * @throws IOException
+     * @throws InterruptedException
+     */
     @GetMapping(path = "/comments", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity getAllComments() throws IOException, InterruptedException {
         return ResponseEntity.ok(commentService.getAllComments());
     }
 
+    /**
+     * Gets specific comment by its id
+     * @param id
+     * @return
+     */
     @GetMapping(path = "/comments/{id}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity getCommentById(@PathVariable String id) {
         final Comment comment = commentService.getComment(id);
         return ResponseEntity.ok(comment);
     }
 
-
+    /**
+     * Gets comment for specific car by its id
+     * @param carId
+     * @return
+     * @throws IOException
+     * @throws InterruptedException
+     */
     @GetMapping(path="/comments/car/{carId}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity getCommentsByCarId(@PathVariable String carId) throws IOException, InterruptedException {
         final List<Comment> comments = commentService.getAllCommentsByCarID(carId);
         return ResponseEntity.ok(comments);
     }
 
-
+    /**
+     * Adds comment
+     * @param comment
+     * @return
+     */
     @PostMapping(path = "/comments", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity addComment(@RequestBody Comment comment) {
         commentService.addComment(comment);
@@ -49,6 +69,11 @@ public class CommentController {
         return ResponseEntity.ok().build();
     }
 
+    /**
+     * Deletes comment by its id
+     * @param id
+     * @return
+     */
     @DeleteMapping(path = "/comments/{id}")
     public ResponseEntity deleteComment(@PathVariable String id) {
         Comment comment = commentService.getComment(id);

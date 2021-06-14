@@ -133,7 +133,7 @@ public class OfferService {
     }
 
     /**
-     * Gets all offers tah are unrented
+     * Gets all offers which are unrented
      * @return
      */
     public List<Offer> getAllNoRentedOffers() {
@@ -154,7 +154,7 @@ public class OfferService {
     }
 
     /**
-     * Gets all offers that user are owenr of
+     * Gets all offers that user is owenr of
      * @param ownerID
      * @return
      */
