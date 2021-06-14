@@ -39,6 +39,11 @@ public class LoginController {
         this.refreshTokenService = refreshTokenService;
     }
 
+    /**
+     * Authenticates user
+     * @param loginRequest
+     * @return
+     */
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -58,6 +63,11 @@ public class LoginController {
                 roles, userId));
     }
 
+    /**
+     * Refreshes token
+     * @param request
+     * @return
+     */
     @PostMapping("/refreshtoken")
     public ResponseEntity<?> refreshtoken(@Valid @RequestBody TokenRefreshRequest request) {
         String requestRefreshToken = request.getRefreshToken();

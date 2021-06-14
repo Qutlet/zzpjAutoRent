@@ -14,6 +14,11 @@ public class RefreshTokenRepository extends AbstractFirestoreRepository<RefreshT
         super(firestore, "refresh_tokens");
     }
 
+    /**
+     * Deletes user by its id
+     * @param id
+     * @throws RefreshTokenNotFoundException
+     */
     public void deleteByUserId(String id) throws RefreshTokenNotFoundException {
         Optional<RefreshToken> tokenFromDatabase = this.findBy("userId", id).get(0);
         if(tokenFromDatabase.isPresent()){

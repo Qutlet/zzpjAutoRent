@@ -21,6 +21,11 @@ public class MessageController {
         this.messagingTemplate.setMessageConverter(new SimpleMessageConverter());
     }
 
+    /**
+     *
+     * @param message
+     * @return
+     */
     @MessageMapping("/message/{room}")
     @SendTo("/topic/messages/{room}")
     public Message sendMessage(final Message message){
