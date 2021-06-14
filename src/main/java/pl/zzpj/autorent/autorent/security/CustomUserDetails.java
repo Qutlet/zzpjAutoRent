@@ -58,6 +58,10 @@ public class CustomUserDetails implements UserDetails {
         return true;
     }
 
+    /**
+     * Chck if user is enabled
+     * @return
+     */
     @Override
     public boolean isEnabled() {
         return true;
