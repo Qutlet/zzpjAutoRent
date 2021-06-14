@@ -51,7 +51,7 @@ public class CarTest {
     }
 
     @Test
-    void contextLoads() {
+    public void contextLoads() {
 //        assertThat(carController).isNotNull();
     }
 

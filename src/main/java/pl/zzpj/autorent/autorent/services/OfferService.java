@@ -58,7 +58,7 @@ public class OfferService {
      */
     public String getPlaces() throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://opentripmap-places-v1.p.rapidapi.com/en/places/radius?lat=51.855279&lon=19.39332&radius=50000&kinds=tourist_object"))
+                .uri(URI.create("https://opentripmap-places-v1.p.rapidapi.com/en/places/radius?lat=51.855279&lon=19.39332&radius=5000&kinds=tourist_object"))
                 .header("x-rapidapi-key", "2e775c2a61mshe8a9d515320ba79p148d59jsn25cb96372d73")
                 .header("x-rapidapi-host", "opentripmap-places-v1.p.rapidapi.com")
                 .method("GET", HttpRequest.BodyPublishers.noBody())

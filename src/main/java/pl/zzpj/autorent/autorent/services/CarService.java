@@ -60,6 +60,7 @@ public class CarService {
      * @param car
      */
     public void addCar(Car car) {
+        car.setId(UUID.randomUUID().toString());
         carRepository.save(car);
     }
 
@@ -94,7 +95,8 @@ public class CarService {
 
         if (!car.isRented()) {
             List<Comment> comments = car.getCommentList();
-            comments.forEach(comment -> commentRepository.deleteById(comment.getId()));
+            if (comments != null)
+                comments.forEach(comment -> commentRepository.deleteById(comment.getId()));
             carRepository.deleteById(id);
         }
     }
@@ -124,7 +126,7 @@ public class CarService {
      */
     public List<Car> getAllNoRentedCarsFor(String ownerId) {
         List<Car> cars = carRepository.retrieveAll();
-        cars.removeIf(c -> (!c.isRented() && c.getOwnerId().equals(ownerId)));
+        cars.removeIf(c -> (!c.isRented() && !c.getOwnerId().equals(ownerId)));
         return cars;
     }
 
