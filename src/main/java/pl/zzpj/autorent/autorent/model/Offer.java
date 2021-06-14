@@ -3,14 +3,16 @@ package pl.zzpj.autorent.autorent.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import pl.zzpj.autorent.autorent.firestore.DocumentId;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import java.sql.Date;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-//@Table(name = "offers")
+@AllArgsConstructor
 public class Offer {
     @DocumentId
     private String id;
@@ -27,15 +29,27 @@ public class Offer {
     //zdiecie
     // TODO: 03.05.2021 add photo field
 
+    /**
+     * Sets rented field
+     * @param rented
+     */
     public void setRented(boolean rented) {
         this.rented = rented;
     }
 
-
+    /**
+     * Sets clientId field
+     * @param clientID
+     */
     public void setClientID(String clientID) {
         this.clientID = clientID;
     }
 
+    /**
+     * Constructor
+     * @param carID
+     * @param offerName
+     */
     public Offer(String carID, String offerName) {
         this.carID = carID;
         this.offerName = offerName;

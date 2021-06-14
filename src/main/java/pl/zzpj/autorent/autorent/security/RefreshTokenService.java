@@ -40,6 +40,11 @@ public class RefreshTokenService {
         return refreshTokenRepository.findBy("token", token).get(0);
     }
 
+    /**
+     * Creates refreshToken for specific user
+     * @param username
+     * @return
+     */
     public RefreshToken createRefreshToken(String username) {
         RefreshToken refreshToken = new RefreshToken();
 
@@ -51,6 +56,12 @@ public class RefreshTokenService {
         return refreshToken;
     }
 
+    /**
+     * Checks if token did expired
+     * @param token
+     * @return
+     * @throws TokenRefreshException
+     */
     public RefreshToken verifyExpiration(RefreshToken token) throws TokenRefreshException {
         if (token.getExpiryDate().compareTo(Timestamp.now()) < 0) {
             refreshTokenRepository.delete(token);
@@ -59,6 +70,7 @@ public class RefreshTokenService {
 
         return token;
     }
+
 
     @Transactional
     public void deleteByUserId(Long userId) {
@@ -69,6 +81,12 @@ public class RefreshTokenService {
         }
     }
 
+    /**
+     * Generates token using user id
+     * @param username
+     * @return
+     * @throws GenerateTokenException
+     */
     public String generateTokenByUserId(String username) throws GenerateTokenException {
         Optional<User> userFromDatabase = userRepository.findBy("email", username).get(0);
         if (userFromDatabase.isPresent()) {
@@ -81,6 +99,10 @@ public class RefreshTokenService {
         }
     }
 
+    /**
+     * Calculates token expiration time
+     * @return
+     */
     private Timestamp calculateTimestampOfExpiration() {
         long retryDate = System.currentTimeMillis();
 

@@ -28,17 +28,34 @@ public class OfferService {
     private OfferRepository offerRepository;
     private CarRepository carRepository;
 
+    /**
+     * Constructor
+     * @param offerRepository
+     */
     @Autowired
     public OfferService(OfferRepository offerRepository) {
         this.offerRepository = offerRepository;
     }
 
+    /**
+     * Gets offer from database by its id
+     * @param id
+     * @return
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public Offer getOffer(String id) throws IOException, InterruptedException {
 
 
         return offerRepository.get(id).orElseThrow();
     }
 
+    /**
+     * External api, returns interesting places to visit
+     * @return
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public String getPlaces() throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://opentripmap-places-v1.p.rapidapi.com/en/places/radius?lat=51.855279&lon=19.39332&radius=50000&kinds=tourist_object"))
@@ -52,6 +69,12 @@ public class OfferService {
     }
 
 
+    /**
+     * External api, returs conversion rate of PLN and currency given as a param
+     * @param currency
+     * @return
+     * @throws IOException
+     */
     public String getConversionRate(String currency) throws IOException{
         String url_str = "https://v6.exchangerate-api.com/v6/80d42cc4b1182ff527f16534/pair/PLN/" + currency;
         URL url = new URL(url_str);
@@ -64,11 +87,12 @@ public class OfferService {
 
 
     /**
-     * this function is responsible for ending car rental
+     * Updates offer
+     * @param id
+     * @param userid
      */
     public void updateOffer(String id, String userid) {
         Optional<Offer> offerToUpdate = offerRepository.get(id);
-        //offerToUpdate.setClientID(userid);
         offerToUpdate.get().setClientID(userid);
         if (userid.equals("0")) {
             offerToUpdate.get().setRented(false);
@@ -76,68 +100,77 @@ public class OfferService {
             offerToUpdate.get().setRented(true);
         }
         offerRepository.save(offerToUpdate.get());
-        //return updatedOffer;
     }
 
     // TODO: 03.05.2021 check offer creator
-    // TODO: 03.05.2021 check if offer is live
+
+    /**
+     * Edits offer
+     * @param id
+     * @param offer
+     */
     public void editOffer(String id, Offer offer) {
         offerRepository.update(id, offer);
     }
 
+    /**
+     * Adds offer
+     * @param offer
+     */
     public void addOffer(Offer offer) {
         offer.setId(UUID.randomUUID().toString());
         offerRepository.save(offer);
 
     }
 
-    //
-//
-//    // TODO: 03.05.2021 check offer creator
-
+    /**
+     * Deletes offer
+     * @param id
+     */
+   // TODO: 03.05.2021 check offer creator
     public void deleteOffer(String id) {
         offerRepository.deleteById(id);
     }
 
+    /**
+     * Gets all offers which are unrented
+     * @return
+     */
     public List<Offer> getAllNoRentedOffers() {
         List<Offer> all = offerRepository.retrieveAll();
         all.removeIf(Offer::isRented);
         return all;
     }
 
+    /**
+     * Gets all offers that user are currently renting
+     * @param clientID
+     * @return
+     */
     public List<Offer> getAllClientOffers(String clientID) {
         List<Offer> all = offerRepository.retrieveAll();
         all.removeIf(offer -> !offer.getClientID().equals(clientID));
         return all;
     }
 
+    /**
+     * Gets all offers that user is owenr of
+     * @param ownerID
+     * @return
+     */
     public List<Offer> getAllOwnerOffers(String ownerID) {
         List<Offer> all = offerRepository.retrieveAll();
         all.removeIf(offer -> !offer.getOwnerID().equals(ownerID));
         return all;
     }
+
+    /**
+     * Gets all ofers
+     * @return
+     */
     public List<Offer> getAllOffers() {
-
-//        HttpRequest request = HttpRequest.newBuilder()
-//                .uri(URI.create("https://currency-converter5.p.rapidapi.com/currency/convert?format=json&from=EUR&to=PLN&amount=4"))
-//                .header("x-rapidapi-key", "2e775c2a61mshe8a9d515320ba79p148d59jsn25cb96372d73")
-//                .header("x-rapidapi-host", "currency-converter5.p.rapidapi.com")
-//                .method("GET", HttpRequest.BodyPublishers.noBody())
-//                .build();
-//        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-//        System.out.println(response.body());
-
-//        HttpRequest request = HttpRequest.newBuilder()
-//                .uri(URI.create("https://ip-geolocation-ipwhois-io.p.rapidapi.com/json/?ip=46.148.79.143"))
-//                .header("x-rapidapi-key", "2e775c2a61mshe8a9d515320ba79p148d59jsn25cb96372d73")
-//                .header("x-rapidapi-host", "ip-geolocation-ipwhois-io.p.rapidapi.com")
-//                .method("GET", HttpRequest.BodyPublishers.noBody())
-//                .build();
-//        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-//        System.out.println(response.body());
-        //
-
         return offerRepository.retrieveAll();
     }
+
 
 }

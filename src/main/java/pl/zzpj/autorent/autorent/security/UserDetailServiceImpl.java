@@ -20,8 +20,11 @@ public class UserDetailServiceImpl implements UserDetailsService {
     }
 
 
-
-    // this class is used by spring controller to authenticate and authorize user
+    /**
+     * this class is used by spring controller to authenticate and authorize user
+     * @param email
+     * @return
+     */
     @Override
     public UserDetails loadUserByUsername(String email) {
         User user;
