@@ -61,7 +61,7 @@ public class UserService {
      * @param email
      * @return
      */
-    private boolean emailExists(String email) {
+    public boolean emailExists(String email) {
         return repository.findBy("email", email) != null;
     }
 

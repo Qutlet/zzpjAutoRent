@@ -1,5 +1,8 @@
 package pl.zzpj.autorent.autorent.security;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class UserDto {
     private String firstName;
     private String lastName;
