@@ -3,35 +3,12 @@ package pl.zzpj.autorent.autorent.model.security_model;
 import com.google.cloud.Timestamp;
 import com.google.cloud.firestore.annotation.ServerTimestamp;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 public class RefreshToken {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
 
     private String username;
     private String token;
     @ServerTimestamp
     private Timestamp expiryDate;
-
-    /**
-     * Gets token id
-     * @return
-     */
-    public long getId() {
-        return id;
-    }
-
-    /**
-     * Sets token id
-     * @param id
-     */
-    public void setId(long id) {
-        this.id = id;
-    }
 
     /**
      * Gets username from token

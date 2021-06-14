@@ -73,9 +73,9 @@ public class RefreshTokenService {
 
 
     @Transactional
-    public void deleteByUserId(Long userId) {
+    public void deleteByUserId(String userId) {
         try {
-            refreshTokenRepository.deleteByUserId(Long.toString(userId));
+            refreshTokenRepository.deleteByUserId(userId);
         } catch (RefreshTokenNotFoundException e) {
             e.printStackTrace();
         }

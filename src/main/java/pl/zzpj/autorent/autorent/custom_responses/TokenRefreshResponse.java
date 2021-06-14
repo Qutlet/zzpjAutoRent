@@ -1,4 +1,4 @@
-package pl.zzpj.autorent.autorent.security;
+package pl.zzpj.autorent.autorent.custom_responses;
 
 public class TokenRefreshResponse {
     private String accessToken;
