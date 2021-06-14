@@ -22,13 +22,26 @@ public class Comment {
     private Date time;
     private String message;
 
+    /**
+     * Gets time of comment
+     * @return Date
+     */
     public Date getTime() {
         return time;
     }
 
+    /**
+     * Sets time of comment
+     * @param time
+     */
     public void setTime(Date time) {
         this.time = time;
     }
+
+    /**
+     * Sets id of comment
+     * @param id
+     */
     public void setId(String id) {
         this.id = id;
     }

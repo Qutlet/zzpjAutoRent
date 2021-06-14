@@ -31,6 +31,12 @@ public class Car {
     private double priceForDay;  //100 za dzien
     private String photo;
 
+    /**
+     * Car debug constructor
+     * @param carName
+     * @param carBrandName
+     * @param carModelName
+     */
     public Car(String carName, String carBrandName, String carModelName) {
         this.carName = carName;
         this.carBrandName = carBrandName;
@@ -38,6 +44,24 @@ public class Car {
         this.commentList = new ArrayList<>();
     }
 
+    /**
+     * Car constructor
+     * @param id
+     * @param ownerId
+     * @param carName
+     * @param carBrandName
+     * @param carModelName
+     * @param isRented
+     * @param engine
+     * @param enginePower
+     * @param color
+     * @param gearBox
+     * @param fuel
+     * @param description
+     * @param country
+     * @param priceForDay
+     * @param photo
+     */
     public Car(String id,String ownerId, String carName, String carBrandName, String carModelName, boolean isRented, double engine, double enginePower, String color, String gearBox, String fuel, String description, String country, double priceForDay, String photo) {
         this.id = id;
         this.ownerId = ownerId;
@@ -57,6 +81,11 @@ public class Car {
         this.commentList = new ArrayList<>();
     }
 
+    /**
+     * Car constructor
+     * @param id
+     * @param carName
+     */
     public Car(String id, String carName) {
         this.id = id;
         this.carName = carName;
