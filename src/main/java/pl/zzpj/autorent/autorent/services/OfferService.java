@@ -26,7 +26,7 @@ import java.util.UUID;
 public class OfferService {
 
     private OfferRepository offerRepository;
-    private CarRepository carRepository;
+    private CarRepository carRepository; //hehe
 
     /**
      * Constructor
